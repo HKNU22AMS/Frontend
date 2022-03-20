@@ -7,7 +7,7 @@ const FooterDiv = styled.div`
   height: 100px;
   width: 100%;
   background: gray;
-  padding-top: 2%;
+  padding-top: 20px;
 `;
 
 const LogoText = styled.span`

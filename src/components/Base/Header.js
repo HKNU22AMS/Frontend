@@ -9,7 +9,7 @@ const HeaderDiv = styled.div`
   flex-direction: column;
   height: 100px;
   width: 100%;
-  background: none;
+  background: skyblue;
   padding-bottom: 20px;
 
   ${({ landing }) => {
@@ -17,7 +17,7 @@ const HeaderDiv = styled.div`
       ? `justify-content: flex-end;
       align-items: center;`
       : `justify-content: center;
-      align-items: flex-start`;
+      align-items: flex-start;`;
   }}
 `;
 
@@ -31,6 +31,9 @@ const LogoText = styled.span`
     1px 0 white, 0 -1px white;
   letter-spacing: 2px;
   color: black;
+  ${({ landing }) => {
+    return landing ? `padding-left: 0;` : `padding-left: 30px;`;
+  }}
 `;
 
 const Logo = styled(Link)`
@@ -49,7 +52,7 @@ const Header = () => {
     <div>
       <HeaderDiv landing={currentPage}>
         <Logo to="/">
-          <LogoText>AMS</LogoText>
+          <LogoText landing={currentPage}>AMS</LogoText>
         </Logo>
       </HeaderDiv>
     </div>
