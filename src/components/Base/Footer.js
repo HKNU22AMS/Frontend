@@ -3,15 +3,18 @@ import styled from 'styled-components';
 
 const FooterDiv = styled.div`
   position: absolute;
+  top: 100%;
+  height: 135px;
   bottom: 0;
-  height: 100px;
   width: 100%;
   background: gray;
   padding-top: 20px;
 `;
 
-const LogoText = styled.span`
+const LogoText = styled.div`
+  float: left;
   margin-left: 20%;
+  margin-top: 2%;
   font-family: 'ABeeZee';
   font-style: italic;
   font-size: 40px;
@@ -20,8 +23,10 @@ const LogoText = styled.span`
   color: rgba(255, 255, 255, 0.7);
 `;
 
-const CopyText = styled.span`
-  margin-left: 2%;
+const CopyText = styled.div`
+  float: left;
+  margin-left: 4%;
+  margin-top: 4%;
   font-family: 'ABeeZee';
   font-size: 14px;
   color: white;

@@ -7,9 +7,9 @@ const HeaderDiv = styled.div`
   top: 0;
   display: flex;
   flex-direction: column;
-  height: 100px;
+  height: 130px;
   width: 100%;
-  background: skyblue;
+  background: none;
   padding-bottom: 20px;
 
   ${({ landing }) => {
@@ -25,10 +25,10 @@ const LogoText = styled.span`
   font-family: 'ABeeZee';
   font-style: italic;
   font-weight: 400;
-  font-size: 40px;
+  font-size: 50px;
   text-decoration-line: underline;
-  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), -1px 0 white, 0 1px white,
-    1px 0 white, 0 -1px white;
+  text-shadow: 2px 4px 5px rgba(0, 0, 0, 0.3), -2px 0 white, 0 2px white,
+    2px 0 white, 0 -2px white;
   letter-spacing: 2px;
   color: black;
   ${({ landing }) => {
