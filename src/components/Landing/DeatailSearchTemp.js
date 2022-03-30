@@ -9,7 +9,6 @@ const DetailSearchDiv = styled.div`
   grid-template-rows: 0.75fr 0.75fr 1.5fr;
   gap: 10px 30px;
   margin-left: 0;
-  //place-items: center center;
   background: rgba(0, 0, 0, 0.7);
   border-radius: 5px;
   padding: 1%;
@@ -17,6 +16,7 @@ const DetailSearchDiv = styled.div`
   height: 45%;
   color: white;
   z-index: 1;
+  box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.4);
 `;
 const StyledTitle = styled.span`
   font-family: 'Roboto';
@@ -45,7 +45,6 @@ const MeetingDateText = styled.div`
   color: white;
   border-right: 2px solid white;
   line-height: 55px;
-  //line-height: ${(props) => (props.Lheight === 'C' ? '100px' : '55px')};
   text-align: center;
 `;
 const MeetingDateDiv = styled.div`
@@ -152,10 +151,14 @@ const DetailSearchTemp = () => {
     { id: 9, name: '공청회' },
     { id: 10, name: '청문회' },
   ];
-  const [meetingClass, setMeetingClass] = useState(meetingArr);
+  const [meetingClass /*, setMeetingClass*/] = useState(meetingArr);
   const [select, setSelect] = useState([]);
-  console.log(select);
-  console.log(assemNum);
+
+  /*console.log('대수 선택: ', assemNum);
+  console.log('시작일: ', startDate);
+  console.log('종료일: ', endDate);
+  console.log('회의 구분: ', select);*/
+
   return (
     <DetailSearchDiv>
       <AssemblyText>
@@ -282,20 +285,20 @@ const DetailSearchTemp = () => {
             <ClassBtn
               key={item.id}
               onClick={() => {
-                !select.includes(item.id)
-                  ? setSelect((select) => [...select, item.id])
-                  : setSelect(select.filter((button) => button !== item.id));
+                !select.includes(item.name)
+                  ? setSelect((select) => [...select, item.name])
+                  : setSelect(select.filter((button) => button !== item.name));
               }}
-              clicked={select.includes(item.id) ? 'y' : ''}
-              size={item.id === 4 ? '13px' : ''}
+              clicked={select.includes(item.name) ? 'y' : ''}
+              size={item.name === 4 ? '13px' : ''}
             >
               {item.name}
             </ClassBtn>
           ))}
         </MeetingClassDiv>
         <AllCheckDiv>
-          <StyledAssemText paddingt="15%">전체</StyledAssemText>
-          <StyledAssemText paddingt="35%">
+          <StyledAssemText paddingt="13%">전체</StyledAssemText>
+          <StyledAssemText paddingt="25%">
             <input
               type="checkbox"
               onClick={(e) => {

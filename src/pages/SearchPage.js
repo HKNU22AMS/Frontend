@@ -1,10 +1,10 @@
 import React from 'react';
-
+import SearchForm from '../containers/form/SearchForm';
 const SearchPage = () => {
   return (
-    <>
-      <div>검색 결과 페이지 내용</div>
-    </>
+    <div>
+      <SearchForm />
+    </div>
   );
 };
 
