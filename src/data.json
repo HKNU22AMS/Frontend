@@ -126,7 +126,137 @@
       "minute_id": {
         "meeting_class": "예산결산특별위원회",
         "committee": "예산결산특별위원회",
-        "meeting_date": "2000/05/01"
+        "meeting_date": "2000/04/10"
+      },
+      "Graph": "그래프"
+    },
+    {
+      "id": 11,
+      "name": "법안 11",
+      "keyword": "img",
+      "main_content": "법안 11의 주요 내용입니다.",
+      "comment_sum": "법안 11의 요약 내용입니다.",
+      "minute_id": {
+        "meeting_class": "소위원회",
+        "committee": "환경노동위원회",
+        "meeting_date": "2016/11/21"
+      },
+      "Graph": "그래프"
+    },
+    {
+      "id": 12,
+      "name": "법안 12",
+      "keyword": "img",
+      "main_content": "법안 12의 주요 내용입니다.",
+      "comment_sum": "법안 12의 요약 내용입니다.",
+      "minute_id": {
+        "meeting_class": "국정조사",
+        "committee": "행정안전위원회",
+        "meeting_date": "2021/12/11"
+      },
+      "Graph": "그래프"
+    },
+    {
+      "id": 13,
+      "name": "법안 13",
+      "keyword": "img",
+      "main_content": "법안 13의 주요 내용입니다.",
+      "comment_sum": "법안 13의 요약 내용입니다.",
+      "minute_id": {
+        "meeting_class": "특별위원회",
+        "committee": "여성가족위원회",
+        "meeting_date": "2014/05/16"
+      },
+      "Graph": "그래프"
+    },
+    {
+      "id": 14,
+      "name": "법안 14",
+      "keyword": "img",
+      "main_content": "법안 14의 주요 내용입니다.",
+      "comment_sum": "법안 14의 요약 내용입니다.",
+      "minute_id": {
+        "meeting_class": "예산결산특별위원회",
+        "committee": "예산결산특별위원회",
+        "meeting_date": "2010/04/10"
+      },
+      "Graph": "그래프"
+    },
+    {
+      "id": 15,
+      "name": "법안 15",
+      "keyword": "img",
+      "main_content": "법안 15의 주요 내용입니다.",
+      "comment_sum": "법안 15의 요약 내용입니다.",
+      "minute_id": {
+        "meeting_class": "국정감사",
+        "committee": "문화체육관광위원회",
+        "meeting_date": "2015/05/01"
+      },
+      "Graph": "그래프"
+    },
+    {
+      "id": 16,
+      "name": "법안 16",
+      "keyword": "img",
+      "main_content": "법안 16의 주요 내용입니다.",
+      "comment_sum": "법안 16의 요약 내용입니다.",
+      "minute_id": {
+        "meeting_class": "본회의",
+        "committee": "교육위원회",
+        "meeting_date": "2019/10/06"
+      },
+      "Graph": "그래프"
+    },
+    {
+      "id": 17,
+      "name": "법안 17",
+      "keyword": "img",
+      "main_content": "법안 17의 주요 내용입니다.",
+      "comment_sum": "법안 17의 요약 내용입니다.",
+      "minute_id": {
+        "meeting_class": "예산결산특별위원회",
+        "committee": "정치개혁특별위원회",
+        "meeting_date": "2005/07/17"
+      },
+      "Graph": "그래프"
+    },
+    {
+      "id": 18,
+      "name": "법안 18",
+      "keyword": "img",
+      "main_content": "법안 18의 주요 내용입니다.",
+      "comment_sum": "법안 18의 요약 내용입니다.",
+      "minute_id": {
+        "meeting_class": "소위원회",
+        "committee": "환경노동위원회",
+        "meeting_date": "2018/08/06"
+      },
+      "Graph": "그래프"
+    },
+    {
+      "id": 19,
+      "name": "법안 19",
+      "keyword": "img",
+      "main_content": "법안 19의 주요 내용입니다.",
+      "comment_sum": "법안 19의 요약 내용입니다.",
+      "minute_id": {
+        "meeting_class": "국정조사",
+        "committee": "행정안전위원회",
+        "meeting_date": "2021/12/15"
+      },
+      "Graph": "그래프"
+    },
+    {
+      "id": 20,
+      "name": "법안 20",
+      "keyword": "img",
+      "main_content": "법안 20의 주요 내용입니다.",
+      "comment_sum": "법안 20의 요약 내용입니다.",
+      "minute_id": {
+        "meeting_class": "본회의",
+        "committee": "교육위원회",
+        "meeting_date": "2020/11/11"
       },
       "Graph": "그래프"
     }
@@ -210,7 +340,7 @@
       "assembly_num": 16,
       "meeting_class": "예산결산특별위원회",
       "committee": "예산결산특별위원회",
-      "meeting_date": "2000/05/01"
+      "meeting_date": "2000/04/10"
     }
   ],
   "speakers": [

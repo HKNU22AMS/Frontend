@@ -17,7 +17,7 @@ const SearchContentDiv = styled.div`
 const SearchForm = () => {
   return (
     <>
-      <SearchBar isLanding={false} />
+      <SearchBar isLanding={false} placeh="검색어를 입력하세요." />
       <InformText />
       <SearchContentDiv>
         <DetailTab />

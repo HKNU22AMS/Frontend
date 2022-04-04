@@ -39,13 +39,13 @@ const SearchBtn = styled(Link)`
   text-decoration: none;
   color: black;
   margin-top: 5px;
+  justify-content: center;
   display: flex;
   width: 50px;
   height: 50px;
   border: none;
   background: none;
   align-items: center;
-  justify-content: center;
   margin-right: 3%;
 `;
 const PlusBtn = styled.button`
@@ -61,7 +61,7 @@ const PlusBtn = styled.button`
   outline: 0;
 `;
 
-const SearchBar = ({ isLanding }) => {
+const SearchBar = ({ isLanding, placeh }) => {
   const [show, setShow] = useState(false);
   const onClickPlus = () => {
     setShow(!show);
@@ -69,18 +69,15 @@ const SearchBar = ({ isLanding }) => {
   return (
     <>
       <InputDiv margin={isLanding}>
-        <StyledInput
-          type="text"
-          placeholder="검색어를 입력하세요. (안건명, 발언자명, 발언 내용)"
-        />
+        <StyledInput type="text" placeholder={placeh} />
         <SearchBtn to="/search">
           <Search size="40" />
         </SearchBtn>
-        {isLanding ? (
+        {isLanding && (
           <PlusBtn>
             <Plus size="20" onClick={onClickPlus} />
           </PlusBtn>
-        ) : null}
+        )}
       </InputDiv>
       {show ? <DetailSearchTemp /> : null}
     </>

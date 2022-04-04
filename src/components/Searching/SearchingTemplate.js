@@ -1,4 +1,4 @@
-import React from 'react';
+import React /*, { useState }*/ from 'react';
 import styled from 'styled-components';
 import data from '../../data.json';
 import { Link } from 'react-router-dom';
@@ -39,6 +39,10 @@ const StyledLink = styled(Link)`
 `;
 
 const SearchingTemplate = () => {
+  /*const [searchResult, setSearchResult] = useState();
+  const onResult = (l) => {
+    setSearchResult(l);
+  };*/
   return (
     <div>
       <ColumnDiv>

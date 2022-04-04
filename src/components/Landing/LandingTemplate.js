@@ -41,7 +41,10 @@ const LandingTemplate = () => {
           <br />
           법안 중심의 보기 쉽게 정리된 회의록을 만나보세요.
         </InfText>
-        <SearchBar isLanding={true} />
+        <SearchBar
+          isLanding={true}
+          placeh="검색어를 입력하세요. (안건명, 발언자명, 발언 내용)"
+        />
       </LandingDiv>
     </>
   );

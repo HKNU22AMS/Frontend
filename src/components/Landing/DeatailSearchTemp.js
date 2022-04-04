@@ -16,7 +16,8 @@ const DetailSearchDiv = styled.div`
   height: 45%;
   color: white;
   z-index: 1;
-  box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.4);
+  //box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.4);
+  box-shadow: 0px 13px 10px -1px rgba(0, 0, 0, 0.5);
 `;
 const StyledTitle = styled.span`
   font-family: 'Roboto';
