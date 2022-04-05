@@ -8,11 +8,14 @@ const TabDiv = styled.div`
   display: flex;
   flex-direction: column;
   border: 1px solid black;
+  //height: auto;
   height: 655px;
   width: 230px;
   margin-right: 15px;
+  margin-top: 60px;
   box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.4);
   font-family: 'Roboto';
+  overflow: hidden;
 `;
 const TitleToggleDiv = styled.div`
   display: flex;
@@ -82,7 +85,7 @@ const BasicBtn = styled.button`
   margin-top: 5px;
   cursor: pointer;
   font-size: 15px;
-  border: 1px solid lightgray;
+  border: 1px solid lightgrey;
   border-radius: 5px;
   :hover {
     color: white;
