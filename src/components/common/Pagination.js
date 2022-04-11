@@ -13,7 +13,7 @@ const Button = styled.button`
   border-radius: 8px;
   padding: 8px;
   margin: 0;
-  background: #727e75;
+  background: #9ba39c;
   color: white;
   font-size: 1rem;
 
@@ -29,8 +29,8 @@ const Button = styled.button`
     transform: revert;
   }
 
-  &[aria-currnet] {
-    background: green;
+  &[aria-current] {
+    background: #727e75;
     font-weight: bold;
     cursor: revert;
     transform: revert;
