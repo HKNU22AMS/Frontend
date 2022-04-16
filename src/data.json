@@ -341,6 +341,86 @@
       "meeting_class": "예산결산특별위원회",
       "committee": "예산결산특별위원회",
       "meeting_date": "2000/04/10"
+    },
+    {
+      "id": 11,
+      "minutes_num": 110,
+      "assembly_num": 19,
+      "meeting_class": "본회의",
+      "committee": "교육위원회",
+      "meeting_date": "2010/01/01"
+    },
+    {
+      "id": 12,
+      "minutes_num": 111,
+      "assembly_num": 21,
+      "meeting_class": "상임위원회",
+      "committee": "국방위원회",
+      "meeting_date": "2021/02/01"
+    },
+    {
+      "id": 13,
+      "minutes_num": 112,
+      "assembly_num": 17,
+      "meeting_class": "특별위원회",
+      "committee": "정무위원회",
+      "meeting_date": "2011/04/01"
+    },
+    {
+      "id": 14,
+      "minutes_num": 113,
+      "assembly_num": 18,
+      "meeting_class": "국정감사",
+      "committee": "정무위원회",
+      "meeting_date": "2020/05/01"
+    },
+    {
+      "id": 15,
+      "minutes_num": 114,
+      "assembly_num": 16,
+      "meeting_class": "상임위원회",
+      "committee": "정보위원회",
+      "meeting_date": "2019/04/01"
+    },
+    {
+      "id": 16,
+      "minutes_num": 115,
+      "assembly_num": 20,
+      "meeting_class": "예산결산특별위원회",
+      "committee": "정치개혁특별위원회",
+      "meeting_date": "2005/01/01"
+    },
+    {
+      "id": 17,
+      "minutes_num": 116,
+      "assembly_num": 17,
+      "meeting_class": "소위원회",
+      "committee": "환경노동위원회",
+      "meeting_date": "2006/01/01"
+    },
+    {
+      "id": 18,
+      "minutes_num": 117,
+      "assembly_num": 21,
+      "meeting_class": "국정조사",
+      "committee": "행정안전위원회",
+      "meeting_date": "2021/02/01"
+    },
+    {
+      "id": 19,
+      "minutes_num": 118,
+      "assembly_num": 18,
+      "meeting_class": "특별위원회",
+      "committee": "여성가족위원회",
+      "meeting_date": "2014/06/01"
+    },
+    {
+      "id": 20,
+      "minutes_num": 119,
+      "assembly_num": 16,
+      "meeting_class": "예산결산특별위원회",
+      "committee": "예산결산특별위원회",
+      "meeting_date": "2000/04/10"
     }
   ],
   "speakers": [
@@ -391,6 +471,56 @@
     },
     {
       "id": 10,
+      "name": "이수진",
+      "affiliation": "국회의원"
+    },
+    {
+      "id": 11,
+      "name": "전주혜",
+      "affiliation": "국회의원"
+    },
+    {
+      "id": 12,
+      "name": "윤동춘",
+      "affiliation": "경상북도지방경찰청장"
+    },
+    {
+      "id": 13,
+      "name": "여준기",
+      "affiliation": "경주시체육회장"
+    },
+    {
+      "id": 14,
+      "name": "유진규",
+      "affiliation": "경찰청교통국장"
+    },
+    {
+      "id": 15,
+      "name": "박대출",
+      "affiliation": "국회의원"
+    },
+    {
+      "id": 16,
+      "name": "기동민",
+      "affiliation": "국회의원"
+    },
+    {
+      "id": 17,
+      "name": "김남국",
+      "affiliation": "국회의원"
+    },
+    {
+      "id": 18,
+      "name": "박재호",
+      "affiliation": "국회의원"
+    },
+    {
+      "id": 19,
+      "name": "김용민",
+      "affiliation": "국회의원"
+    },
+    {
+      "id": 20,
       "name": "이수진",
       "affiliation": "국회의원"
     }

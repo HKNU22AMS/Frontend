@@ -2,11 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 
 const FooterDiv = styled.div`
-  position: absolute;
+  /*position: absolute;
   top: 100%;
-  height: 135px;
   bottom: 0;
-  width: 100%;
+  width: 100%;*/
+  position: relative;
+  height: 135px;
   background: gray;
   padding-top: 20px;
 `;
@@ -32,7 +33,7 @@ const CopyText = styled.div`
   color: white;
 `;
 
-const Header = () => {
+const Footer = () => {
   return (
     <div>
       <FooterDiv>
@@ -43,4 +44,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default Footer;

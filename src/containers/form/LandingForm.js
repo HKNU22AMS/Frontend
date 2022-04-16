@@ -23,7 +23,7 @@ const StyledBg = styled.div`
 
 const LandingForm = () => {
   return (
-    <div>
+    <div style={{ paddingBottom: '140px' }}>
       <StyledBg />
       <LandingTemplate />
     </div>

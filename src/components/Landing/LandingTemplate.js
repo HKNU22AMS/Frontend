@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import SearchBar from './SearchBar';
+import SearchBar from '../common/SearchBar';
 
 const LogoInfText = styled.div`
   font-family: 'ABeeZee';

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Search from '../../lib/icons/Search';
 import { Link } from 'react-router-dom';
 import Plus from '../../lib/icons/Plus';
-import DetailSearchTemp from './DeatailSearchTemp';
+import DetailSearchTemp from '../Landing/DeatailSearchTemp';
 
 const InputDiv = styled.div`
   display: flex;
