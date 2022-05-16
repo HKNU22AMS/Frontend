@@ -1,10 +1,11 @@
 import React from 'react';
+import SpeakerForm from '../containers/form/SpeakerForm';
 
 const SpeakerPage = () => {
   return (
-    <>
-      <div>발언자 페이지 내용</div>
-    </>
+    <div>
+      <SpeakerForm />
+    </div>
   );
 };
 

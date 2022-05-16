@@ -22,7 +22,7 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/bill/:id" element={<BillPage />} />
           <Route path="/search" element={<SearchPage />} />
-          <Route path="/speaker" element={<SpeakerPage />} />
+          <Route path="/speaker/:id" element={<SpeakerPage />} />{' '}
         </Routes>
       </div>
       <Footer />

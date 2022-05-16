@@ -7,11 +7,13 @@
       "main_content": "법안 1의 주요 내용입니다.",
       "comment_sum": "법안 1의 요약 내용입니다.",
       "minute_id": {
+        "assembly_num": 19,
         "meeting_class": "본회의",
         "committee": "교육위원회",
         "meeting_date": "2010/01/01"
       },
-      "Graph": "그래프"
+      "Graph": "그래프",
+      "Speakers_id": [1, 2]
     },
     {
       "id": 2,
@@ -20,6 +22,7 @@
       "main_content": "법안 2의 주요 내용입니다.",
       "comment_sum": "법안 2의 요약 내용입니다.",
       "minute_id": {
+        "assembly_num": 21,
         "meeting_class": "상임위원회",
         "committee": "국방위원회",
         "meeting_date": "2021/02/01"
@@ -33,6 +36,7 @@
       "main_content": "법안 3의 주요 내용입니다.",
       "comment_sum": "법안 3의 요약 내용입니다.",
       "minute_id": {
+        "assembly_num": 17,
         "meeting_class": "특별위원회",
         "committee": "정무위원회",
         "meeting_date": "2011/04/01"
@@ -46,6 +50,7 @@
       "main_content": "법안 4의 주요 내용입니다.",
       "comment_sum": "법안 4의 요약 내용입니다.",
       "minute_id": {
+        "assembly_num": 18,
         "meeting_class": "국정감사",
         "committee": "문화체육관광위원회",
         "meeting_date": "2020/05/01"
@@ -59,6 +64,7 @@
       "main_content": "법안 5의 주요 내용입니다.",
       "comment_sum": "법안 5의 요약 내용입니다.",
       "minute_id": {
+        "assembly_num": 16,
         "meeting_class": "상임위원회",
         "committee": "정보위원회",
         "meeting_date": "2019/04/01"
@@ -72,6 +78,7 @@
       "main_content": "법안 6의 주요 내용입니다.",
       "comment_sum": "법안 6의 요약 내용입니다.",
       "minute_id": {
+        "assembly_num": 20,
         "meeting_class": "예산결산특별위원회",
         "committee": "정치개혁특별위원회",
         "meeting_date": "2005/01/01"
@@ -85,6 +92,7 @@
       "main_content": "법안 7의 주요 내용입니다.",
       "comment_sum": "법안 7의 요약 내용입니다.",
       "minute_id": {
+        "assembly_num": 17,
         "meeting_class": "소위원회",
         "committee": "환경노동위원회",
         "meeting_date": "2006/01/01"
@@ -98,6 +106,7 @@
       "main_content": "법안 8의 주요 내용입니다.",
       "comment_sum": "법안 8의 요약 내용입니다.",
       "minute_id": {
+        "assembly_num": 21,
         "meeting_class": "국정조사",
         "committee": "행정안전위원회",
         "meeting_date": "2021/02/01"
@@ -111,6 +120,7 @@
       "main_content": "법안 9의 주요 내용입니다.",
       "comment_sum": "법안 9의 요약 내용입니다.",
       "minute_id": {
+        "assembly_num": 18,
         "meeting_class": "특별위원회",
         "committee": "여성가족위원회",
         "meeting_date": "2014/06/01"
@@ -124,6 +134,7 @@
       "main_content": "법안 10의 주요 내용입니다.",
       "comment_sum": "법안 10의 요약 내용입니다.",
       "minute_id": {
+        "assembly_num": 16,
         "meeting_class": "예산결산특별위원회",
         "committee": "예산결산특별위원회",
         "meeting_date": "2000/04/10"
@@ -137,6 +148,7 @@
       "main_content": "법안 11의 주요 내용입니다.",
       "comment_sum": "법안 11의 요약 내용입니다.",
       "minute_id": {
+        "assembly_num": 19,
         "meeting_class": "소위원회",
         "committee": "환경노동위원회",
         "meeting_date": "2016/11/21"
@@ -150,6 +162,7 @@
       "main_content": "법안 12의 주요 내용입니다.",
       "comment_sum": "법안 12의 요약 내용입니다.",
       "minute_id": {
+        "assembly_num": 21,
         "meeting_class": "국정조사",
         "committee": "행정안전위원회",
         "meeting_date": "2021/12/11"
