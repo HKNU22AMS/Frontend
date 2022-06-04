@@ -199,30 +199,30 @@ const DetailTab = () => {
   }, [committeeArr]);
 
   const [speakerName, setSpeakerName] = useState('');
-  const [speakerArr, setSpeakerArr] = useState([]);
+  const [speakers, setSpeakers] = useState([]);
   const onChangeSpeaker = (e) => {
     setSpeakerName(e.target.value);
   };
   const onClickSpeaker = () => {
-    speakerArr.includes(speakerName)
+    speakers.includes(speakerName)
       ? alert('이미 검색된 이름입니다.')
-      : setSpeakerArr([...speakerArr, speakerName]);
+      : setSpeakers([...speakers, speakerName]);
   };
   const onClickDelete = (id) => {
-    setSpeakerArr(speakerArr.filter((el) => el !== speakerArr[id]));
+    setSpeakers(speakers.filter((el) => el !== speakers[id]));
   };
 
   const onClickApply = () => {
     console.log('적용');
     console.log(meetingClass);
     console.log(committeeClass);
-    console.log(speakerArr);
+    console.log(speakers);
   };
   const onClickInitial = () => {
     setMeetingClass([]);
     setCommitteeClass([]);
     setSpeakerName('');
-    setSpeakerArr([]);
+    setSpeakers([]);
   };
   return (
     <TabDiv>
@@ -306,7 +306,7 @@ const DetailTab = () => {
             </SpeakerSearchBtn>
           </SearchBox>
           <SpeakerNamesDiv>
-            {speakerArr.map((name, index) => (
+            {speakers.map((name, index) => (
               <div
                 key={index}
                 value={name}

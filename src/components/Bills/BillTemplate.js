@@ -10,6 +10,7 @@ const PageContent = styled.div`
 `;
 
 const BillTemplate = () => {
+  // router에 useParams로 id값 받아와서 axios.get 하기, 다른 컴포넌트에 값 넣어주기
   /*const DBget = () => {
 
   }*/

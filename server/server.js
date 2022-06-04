@@ -1,14 +1,14 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
-const test = require('./Router/test');
-/*const LandingPage = require('../../src/pages/LandingPage');
-const BillPage = require('../../src/pages/BillPage');
-const SearchPage = require('../../src/pages/SearchPage');
-const SpeakerPage = require('../../src/pages/SpeakerPage');*/
+const api = require('./Router/index');
 
-app.use('/api', test);
+app.use(cors());
+
+app.use('/', api);
 
 const port = 5000;
+
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });

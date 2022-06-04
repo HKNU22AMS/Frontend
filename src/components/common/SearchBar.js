@@ -61,16 +61,39 @@ const PlusBtn = styled.button`
   outline: 0;
 `;
 
-const SearchBar = ({ isLanding, placeh }) => {
+const SearchBar = ({ isLanding, placeh /*, onClickSubmit */ }) => {
   const [show, setShow] = useState(false);
+  const [searchText, setSearchText] = useState('');
+  const [queryString, setQueryString] = useState([]);
+
+  const onChangeText = (e) => {
+    setSearchText(e);
+  };
   const onClickPlus = () => {
     setShow(!show);
   };
+  //console.log(DetailSearchTemp.assemNum);
+  //console.log(searchText);
+  console.log('qs: ', queryString);
+
   return (
     <>
       <InputDiv margin={isLanding}>
-        <StyledInput type="text" placeholder={placeh} />
-        <SearchBtn to="/search">
+        <StyledInput
+          type="text"
+          placeholder={placeh}
+          onChange={(e) => {
+            onChangeText(e.target.value);
+          }}
+        />
+        <SearchBtn
+          to={{
+            pathname: '/search',
+            search:
+              '?q=searchText&aN=assemNum&sD=startDate&eD=endDate&mC=meetingClass&cC=committeeClass&sP=speakers',
+          }}
+          //to={`/search?q=:searchText&aN=:assemNum&sD=:startDate&eD=:endDate&mC=:meetingClass&cC=:committeeClass&sP=:speakers`}
+        >
           <Search size="40" />
         </SearchBtn>
         {isLanding && (
@@ -79,7 +102,7 @@ const SearchBar = ({ isLanding, placeh }) => {
           </PlusBtn>
         )}
       </InputDiv>
-      {show ? <DetailSearchTemp /> : null}
+      {show ? <DetailSearchTemp setQueryString={setQueryString} /> : null}
     </>
   );
 };

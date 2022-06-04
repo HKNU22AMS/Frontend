@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import SearchBar from '../common/SearchBar';
+import qs from 'qs';
+//import DetailSearchTemp from './DeatailSearchTemp';
 
 const LogoInfText = styled.div`
   font-family: 'ABeeZee';
@@ -43,7 +45,10 @@ const LandingTemplate = () => {
         </InfText>
         <SearchBar
           isLanding={true}
-          placeh="검색어를 입력하세요. (안건명, 발언자명, 발언 내용)"
+          placeh="검색어를 입력하세요. (2글자 이상 법안명)"
+          /*onClickSubmit={() => {
+            onSubmit();
+          }}*/
         />
       </LandingDiv>
     </>

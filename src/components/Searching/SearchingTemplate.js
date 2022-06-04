@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import data from '../../data.json';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Pagination from '../common/Pagination';
+/*import axios from 'axios';
+import DetailSearchTemp from '../Landing/DeatailSearchTemp';*/
+import qs from 'qs';
 
 const ColumnDiv = styled.div`
   display: flex;
@@ -84,9 +87,18 @@ const SearchingTemplate = () => {
   const [posts, setPosts] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
+
   const offset = (page - 1) * limit;
 
+  const location = useLocation();
+  const query = qs.parse(location.search, {
+    ignoreQueryPrefix: true,
+  });
+  console.log(location);
+  console.log(query);
+
   useEffect(() => {
+    //searchData();
     setPosts(data.bills);
   }, []);
 

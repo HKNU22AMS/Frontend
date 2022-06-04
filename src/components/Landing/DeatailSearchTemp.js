@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -107,11 +107,40 @@ const AllCheckDiv = styled.div`
   padding: 0;
 `;
 
-const DetailSearchTemp = () => {
+const assemArr = [
+  { num: 16, year: '2000~2004' },
+  { num: 17, year: '2004~2008' },
+  { num: 18, year: '2008~2012' },
+  { num: 19, year: '2012~2016' },
+  { num: 20, year: '2016~2020' },
+  { num: 21, year: '2020~' },
+];
+const meetingArr = [
+  { id: 1, name: '본회의' },
+  { id: 2, name: '상임위원회' },
+  { id: 3, name: '특별위원회' },
+  { id: 4, name: '예산특별결산위원회' },
+  { id: 5, name: '국정감사' },
+  { id: 6, name: '소위원회' },
+  { id: 7, name: '국정조사' },
+  { id: 8, name: '인사청문회' },
+  { id: 9, name: '공청회' },
+  { id: 10, name: '청문회' },
+];
+
+const DetailSearchTemp = (props) => {
   const [startDate, setStartDate] = useState(false);
   const [endDate, setEndDate] = useState(false);
-
+  const [meetingClass, setMeetingClass] = useState([]);
   const [assemNum, setAssemNum] = useState([]);
+
+  /*const sendData = () => {
+    props.setQueryString();
+  }*/
+  useEffect(() => {
+    props.setQueryString(assemNum);
+  });
+
   const onClickAssem = (checked, value) => {
     if (checked) {
       setAssemNum([...assemNum, value]);
@@ -119,12 +148,13 @@ const DetailSearchTemp = () => {
       setAssemNum(assemNum.filter((el) => el !== value));
     }
   };
+
   const onClickAll = (ischecked, e) => {
     if (e === 'A') {
       ischecked ? setAssemNum([16, 17, 18, 19, 20, 21]) : setAssemNum([]);
     } else {
       ischecked
-        ? setSelect([
+        ? setMeetingClass([
             '본회의',
             '상임위원회',
             '특별위원회',
@@ -136,29 +166,14 @@ const DetailSearchTemp = () => {
             '공청회',
             '청문회',
           ])
-        : setSelect([]);
+        : setMeetingClass([]);
     }
   };
 
-  const meetingArr = [
-    { id: 1, name: '본회의' },
-    { id: 2, name: '상임위원회' },
-    { id: 3, name: '특별위원회' },
-    { id: 4, name: '예산특별결산위원회' },
-    { id: 5, name: '국정감사' },
-    { id: 6, name: '소위원회' },
-    { id: 7, name: '국정조사' },
-    { id: 8, name: '인사청문회' },
-    { id: 9, name: '공청회' },
-    { id: 10, name: '청문회' },
-  ];
-  const [meetingClass /*, setMeetingClass*/] = useState(meetingArr);
-  const [select, setSelect] = useState([]);
-
-  /*console.log('대수 선택: ', assemNum);
+  console.log('대수 선택: ', assemNum);
   console.log('시작일: ', startDate);
   console.log('종료일: ', endDate);
-  console.log('회의 구분: ', select);*/
+  console.log('회의 구분: ', meetingClass);
 
   return (
     <DetailSearchDiv>
@@ -167,76 +182,22 @@ const DetailSearchTemp = () => {
       </AssemblyText>
       <div style={{ display: 'flex' }}>
         <AssemblyDiv>
-          <>
-            <StyledAssemText>16대</StyledAssemText>
-            <StyledAssemText>17대</StyledAssemText>
-            <StyledAssemText>18대</StyledAssemText>
-            <StyledAssemText>19대</StyledAssemText>
-            <StyledAssemText>20대</StyledAssemText>
-            <StyledAssemText>21대</StyledAssemText>
-          </>
-          <>
-            <StyledAssemText size="12px">
-              (2000~2004)
+          {assemArr.map((item, idx) => (
+            <StyledAssemText key={idx}>{item.num}대</StyledAssemText>
+          ))}
+          {assemArr.map((item, idx) => (
+            <StyledAssemText size="12px" key={idx}>
+              ({item.year})
               <br />
               <input
                 type="checkbox"
                 onChange={(e) => {
-                  onClickAssem(e.target.checked, 16);
+                  onClickAssem(e.target.checked, item.num);
                 }}
+                checked={assemNum.includes(item.num) ? 'y' : ''}
               />
             </StyledAssemText>
-            <StyledAssemText size="12px">
-              (2004~2008)
-              <br />
-              <input
-                type="checkbox"
-                onChange={(e) => {
-                  onClickAssem(e.target.checked, 17);
-                }}
-              />
-            </StyledAssemText>
-            <StyledAssemText size="12px">
-              (2008~2012)
-              <br />
-              <input
-                type="checkbox"
-                onChange={(e) => {
-                  onClickAssem(e.target.checked, 18);
-                }}
-              />
-            </StyledAssemText>
-            <StyledAssemText size="12px">
-              (2012~2016)
-              <br />
-              <input
-                type="checkbox"
-                onChange={(e) => {
-                  onClickAssem(e.target.checked, 19);
-                }}
-              />
-            </StyledAssemText>
-            <StyledAssemText size="12px">
-              (2016~2020)
-              <br />
-              <input
-                type="checkbox"
-                onChange={(e) => {
-                  onClickAssem(e.target.checked, 20);
-                }}
-              />
-            </StyledAssemText>
-            <StyledAssemText size="12px">
-              (2020~)
-              <br />
-              <input
-                type="checkbox"
-                onChange={(e) => {
-                  onClickAssem(e.target.checked, 21);
-                }}
-              />
-            </StyledAssemText>
-          </>
+          ))}
         </AssemblyDiv>
         <AllCheckDiv>
           <StyledAssemText>전체</StyledAssemText>
@@ -282,15 +243,20 @@ const DetailSearchTemp = () => {
       </MeetingClassText>
       <div style={{ display: 'flex' }}>
         <MeetingClassDiv>
-          {meetingClass.map((item) => (
+          {meetingArr.map((item) => (
             <ClassBtn
               key={item.id}
               onClick={() => {
-                !select.includes(item.name)
-                  ? setSelect((select) => [...select, item.name])
-                  : setSelect(select.filter((button) => button !== item.name));
+                !meetingClass.includes(item.name)
+                  ? setMeetingClass((meetingClass) => [
+                      ...meetingClass,
+                      item.name,
+                    ])
+                  : setMeetingClass(
+                      meetingClass.filter((button) => button !== item.name),
+                    );
               }}
-              clicked={select.includes(item.name) ? 'y' : ''}
+              clicked={meetingClass.includes(item.name) ? 'y' : ''}
               size={item.name === 4 ? '13px' : ''}
             >
               {item.name}
