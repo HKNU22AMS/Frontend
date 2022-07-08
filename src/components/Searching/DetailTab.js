@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { Link, useLocation } from 'react-router-dom';
+import qs from 'qs';
+import axios from 'axios';
 import Triangle from '../../lib/icons/Triangle';
 import data from '../../data.json';
 import Search from '../../lib/icons/Search';
@@ -77,12 +80,16 @@ const BtnDiv = styled.div`
   display: flex;
   justify-content: flex-end;
 `;
-const BasicBtn = styled.button`
-  background: white;
-  width: 30%;
+const BasicBtn = styled(Link)`
+  display: flex;
+  justify-content: center;
   margin-right: 5px;
   margin-bottom: 5px;
   margin-top: 5px;
+  text-decoration: none;
+  color: black;
+  background: white;
+  width: 30%;
   cursor: pointer;
   font-size: 15px;
   border: 1px solid lightgrey;
@@ -166,10 +173,24 @@ const meetingArr = [
   { id: 10, name: '청문회' },
 ];
 
-const DetailTab = () => {
+const DetailTab = (props) => {
   const [toggleBtn1, setToggleBtn1] = useState(true);
   const [toggleBtn2, setToggleBtn2] = useState(true);
   const [toggleBtn3, setToggleBtn3] = useState(true);
+
+  const [committeeArr, setCommitteeArr] = useState([]);
+  const [speakerName, setSpeakerName] = useState('');
+  const [meetingClass, setMeetingClass] = useState([]);
+  const [committeeClass, setCommitteeClass] = useState([]);
+  const [speakers, setSpeakers] = useState([]);
+
+  //const [queries, setQueries] = useState('');
+  const [init, setInit] = useState(false);
+  /*const location = useLocation();
+  const query = qs.parse(location.search, {
+    ignoreQueryPrefix: true,
+  });*/
+  //const queries = qs.stringify(props.query);
 
   const onClickTriangle = (id) => {
     id === 1
@@ -179,17 +200,23 @@ const DetailTab = () => {
       : setToggleBtn3(!toggleBtn3);
   };
 
-  const [meetingClass, setMeetingClass] = useState([]);
-  const onChangeSelect = (com, setCom, checked, value) => {
-    if (checked) {
-      setCom([...com, value]);
-    } else {
-      setCom(com.filter((el) => el !== value));
-    }
-  };
+  useEffect(() => {
+    props.query.mC && setMeetingClass(meetingClass.concat(props.query.mC));
+  }, []);
 
-  const [committeeClass, setCommitteeClass] = useState([]);
-  const [committeeArr, setCommitteeArr] = useState([]);
+  useEffect(() => {
+    init && props.setQuery({ ...props.query, mC: '', cC: '', sP: '' });
+  }, [init]);
+
+  useEffect(() => {
+    props.setQuery({
+      ...props.query,
+      mC: meetingClass,
+      cC: committeeClass,
+      sP: speakers,
+    });
+  }, [meetingClass, committeeClass, speakers]);
+
   useEffect(() => {
     data.bills.map((bill) =>
       committeeArr.includes(bill.minute_id.committee)
@@ -198,8 +225,14 @@ const DetailTab = () => {
     );
   }, [committeeArr]);
 
-  const [speakerName, setSpeakerName] = useState('');
-  const [speakers, setSpeakers] = useState([]);
+  const onChangeSelect = (com, setCom, checked, value) => {
+    if (checked) {
+      setCom([...com, value]);
+    } else {
+      setCom(com.filter((el) => el !== value));
+    }
+  };
+
   const onChangeSpeaker = (e) => {
     setSpeakerName(e.target.value);
   };
@@ -214,11 +247,12 @@ const DetailTab = () => {
 
   const onClickApply = () => {
     console.log('적용');
-    console.log(meetingClass);
-    console.log(committeeClass);
-    console.log(speakers);
+    props.searchData();
   };
   const onClickInitial = () => {
+    console.log('초기화');
+    setInit(!init);
+    props.searchData();
     setMeetingClass([]);
     setCommitteeClass([]);
     setSpeakerName('');
@@ -306,23 +340,39 @@ const DetailTab = () => {
             </SpeakerSearchBtn>
           </SearchBox>
           <SpeakerNamesDiv>
-            {speakers.map((name, index) => (
-              <div
-                key={index}
-                value={name}
-                onClick={() => onClickDelete(index)}
-              >
-                <SpeakerName>{name}</SpeakerName>
-              </div>
-            ))}
+            {speakers &&
+              speakers.map((name, index) => (
+                <div
+                  key={index}
+                  value={name}
+                  onClick={() => onClickDelete(index)}
+                >
+                  <SpeakerName>{name}</SpeakerName>
+                </div>
+              ))}
           </SpeakerNamesDiv>
         </SpeakerDiv>
       )}
       <BtnDiv>
-        <BasicBtn btntype="apply" onClick={() => onClickApply()}>
+        <BasicBtn
+          btntype="apply"
+          to={{
+            pathname: '/search',
+            search: `?${props.queries}`,
+          }}
+          onClick={() => onClickApply()}
+        >
           적용
         </BasicBtn>
-        <BasicBtn onClick={() => onClickInitial()}>초기화</BasicBtn>
+        <BasicBtn
+          to={{
+            pathname: '/search',
+            search: `?${props.queries}`,
+          }}
+          onClick={() => onClickInitial()}
+        >
+          초기화
+        </BasicBtn>
       </BtnDiv>
     </TabDiv>
   );

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import data from '../../data.json';
 import { Link, useLocation } from 'react-router-dom';
 import Pagination from '../common/Pagination';
-/*import axios from 'axios';
-import DetailSearchTemp from '../Landing/DeatailSearchTemp';*/
+import data from '../../data.json';
+/*import axios from 'axios';*/
 import qs from 'qs';
+import axios from 'axios';
 
 const ColumnDiv = styled.div`
   display: flex;
@@ -83,29 +83,44 @@ const StyledSelect = styled.select`
   font-size: 14px;
 `;
 
-const SearchingTemplate = () => {
-  const [posts, setPosts] = useState([]);
+const SearchingTemplate = (props) => {
+  //const [posts, setPosts] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
 
   const offset = (page - 1) * limit;
 
-  const location = useLocation();
+  /*const location = useLocation();
   const query = qs.parse(location.search, {
     ignoreQueryPrefix: true,
   });
-  console.log(location);
-  console.log(query);
+  axios.defaults.paramsSerializer = (params) => {
+    return qs.stringify(params, { arrayFormat: 'repeat' });
+  };*/
+
+  //console.log(query);
+
+  /*const searchData = () => {
+    axios
+      .get(
+        'http://localhost:5000/api/search',
+        { params: props.query },
+        { withCredentials: true },
+      )
+      .then((res) => {
+        console.log(res);
+        props.setPosts(res.data);
+      });
+  };*/
 
   useEffect(() => {
-    //searchData();
-    setPosts(data.bills);
-  }, []);
+    props.searchData();
+  }, [props.query.q]);
 
   return (
     <div>
       <TextDiv>
-        <TotalText>검색 결과: {posts.length}</TotalText>
+        <TotalText>검색 결과: {props.posts.length}</TotalText>
         <DisplayNum>
           출력 건수
           <StyledSelect
@@ -128,21 +143,22 @@ const SearchingTemplate = () => {
       </ColumnDiv>
 
       <MappingDiv>
-        {posts.slice(offset, offset + limit).map((bill) => (
-          <MappingList key={bill.id}>
-            <ColumnText size="35%">
-              <StyledLink to={`/bill/${bill.id}`}>{bill.name}</StyledLink>
-              {/*<StyledLink to='/bill'>{bill.name}</StyledLink>*/}
-            </ColumnText>
-            <ColumnText>{bill.minute_id.meeting_class}</ColumnText>
-            <ColumnText>{bill.minute_id.committee}</ColumnText>
-            <ColumnText size="15%">{bill.minute_id.meeting_date}</ColumnText>
-          </MappingList>
-        ))}
+        {props.posts &&
+          props.posts.slice(offset, offset + limit).map((bill) => (
+            <MappingList key={bill.id}>
+              <ColumnText size="35%">
+                <StyledLink to={`/bill/${bill.id}`}>{bill.name}</StyledLink>
+                {/*<StyledLink to='/bill'>{bill.name}</StyledLink>*/}
+              </ColumnText>
+              <ColumnText>{bill.minute_id.meeting_class}</ColumnText>
+              <ColumnText>{bill.minute_id.committee}</ColumnText>
+              <ColumnText size="15%">{bill.minute_id.meeting_date}</ColumnText>
+            </MappingList>
+          ))}
       </MappingDiv>
 
       <Pagination
-        total={posts.length}
+        total={props.posts.length}
         limit={limit}
         page={page}
         setPage={setPage}

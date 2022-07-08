@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import LandingPage from './pages/LandingPage';
 import BillPage from './pages/BillPage';
@@ -9,14 +9,16 @@ import Footer from './components/Base/Footer';
 import axios from 'axios';
 
 function App() {
+  const [datas, setDatas] = useState({});
+
   const callApi = async () => {
     axios.get('/api').then((res) => {
-      console.log(res.data);
+      setDatas(res.data);
     });
   };
 
   useEffect(() => {
-    callApi();
+    return callApi();
   }, []);
 
   return (
@@ -33,7 +35,7 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/bill/:Billid" element={<BillPage />} />
           <Route path="/search" element={<SearchPage />} />
-          <Route path="/speaker/:id" element={<SpeakerPage />} />{' '}
+          <Route path="/speaker/:id" element={<SpeakerPage />} />
         </Routes>
       </div>
       <Footer />

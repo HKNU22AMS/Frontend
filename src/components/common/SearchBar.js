@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Search from '../../lib/icons/Search';
 import { Link } from 'react-router-dom';
@@ -35,7 +35,7 @@ const StyledInput = styled.input`
     outline: none;
   }
 `;
-const SearchBtn = styled(Link)`
+const SearchLink = styled(Link)`
   text-decoration: none;
   color: black;
   margin-top: 5px;
@@ -61,21 +61,38 @@ const PlusBtn = styled.button`
   outline: 0;
 `;
 
-const SearchBar = ({ isLanding, placeh /*, onClickSubmit */ }) => {
+const SearchBar = ({ isLanding, placeh }) => {
   const [show, setShow] = useState(false);
+  const [nextP, setNextP] = useState(false);
   const [searchText, setSearchText] = useState('');
-  const [queryString, setQueryString] = useState([]);
+  const [queryString, setQueryString] = useState({
+    aN: '',
+    sD: '',
+    eD: '',
+    mC: '',
+    cC: '',
+    sP: '',
+  }); // 사용자 선택 정보
 
   const onChangeText = (e) => {
     setSearchText(e);
+    e.length < 2 ? setNextP(false) : setNextP(true);
   };
   const onClickPlus = () => {
     setShow(!show);
   };
-  //console.log(DetailSearchTemp.assemNum);
-  //console.log(searchText);
-  console.log('qs: ', queryString);
+  const onClickSB = () => {
+    nextP ? setNextP(true) : alert('2글자 이상 검색어를 입력해주세요.');
+  };
 
+  const queries = Object.entries(queryString)
+    .map((item) => {
+      item[1] = item[1] === false ? '' : item[1];
+      return item.join('=').replace(/,/g, '&' + item[0] + '=');
+    })
+    .join('&');
+
+  //console.log(queryString);
   return (
     <>
       <InputDiv margin={isLanding}>
@@ -86,23 +103,28 @@ const SearchBar = ({ isLanding, placeh /*, onClickSubmit */ }) => {
             onChangeText(e.target.value);
           }}
         />
-        <SearchBtn
+        <SearchLink
           to={{
-            pathname: '/search',
-            search:
-              '?q=searchText&aN=assemNum&sD=startDate&eD=endDate&mC=meetingClass&cC=committeeClass&sP=speakers',
+            pathname: nextP ? '/search' : window.location.pathname,
+            search: nextP ? `?q=${searchText}&${queries}` : '',
           }}
-          //to={`/search?q=:searchText&aN=:assemNum&sD=:startDate&eD=:endDate&mC=:meetingClass&cC=:committeeClass&sP=:speakers`}
+          onClick={onClickSB}
+          ///search?q=searchText&aN=assemNum&sD=startDate&eD=endDate&mC=meetingClass&cC=committeeClass&sP=speakers
         >
           <Search size="40" />
-        </SearchBtn>
+        </SearchLink>
         {isLanding && (
           <PlusBtn>
             <Plus size="20" onClick={onClickPlus} />
           </PlusBtn>
         )}
       </InputDiv>
-      {show ? <DetailSearchTemp setQueryString={setQueryString} /> : null}
+      {show ? (
+        <DetailSearchTemp
+          queryString={queryString}
+          setQueryString={setQueryString}
+        />
+      ) : null}
     </>
   );
 };

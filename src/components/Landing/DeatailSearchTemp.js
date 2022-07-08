@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import DatePicker from 'react-datepicker';
+
 import 'react-datepicker/dist/react-datepicker.css';
 
 const DetailSearchDiv = styled.div`
@@ -134,12 +135,24 @@ const DetailSearchTemp = (props) => {
   const [meetingClass, setMeetingClass] = useState([]);
   const [assemNum, setAssemNum] = useState([]);
 
-  /*const sendData = () => {
-    props.setQueryString();
-  }*/
   useEffect(() => {
-    props.setQueryString(assemNum);
-  });
+    props.setQueryString({
+      aN: assemNum,
+      sD: startDate ? setDate(startDate) : false,
+      eD: endDate ? setDate(endDate) : false,
+      mC: meetingClass,
+      cC: '',
+      sP: '',
+    });
+  }, [assemNum, startDate, endDate, meetingClass]);
+
+  const setDate = (date) => {
+    const y = date.getFullYear() + '/';
+    const m = ('0' + (date.getMonth() + 1)).slice(-2) + '/';
+    const d = ('0' + date.getDate()).slice(-2);
+    const dS = y + m + d;
+    return dS;
+  };
 
   const onClickAssem = (checked, value) => {
     if (checked) {
@@ -147,6 +160,7 @@ const DetailSearchTemp = (props) => {
     } else {
       setAssemNum(assemNum.filter((el) => el !== value));
     }
+    props.queryString.aN = assemNum;
   };
 
   const onClickAll = (ischecked, e) => {
@@ -168,12 +182,13 @@ const DetailSearchTemp = (props) => {
           ])
         : setMeetingClass([]);
     }
+    props.queryString.mC = meetingClass;
   };
 
-  console.log('대수 선택: ', assemNum);
+  /*console.log('대수 선택: ', assemNum);
   console.log('시작일: ', startDate);
   console.log('종료일: ', endDate);
-  console.log('회의 구분: ', meetingClass);
+  console.log('회의 구분: ', meetingClass);*/
 
   return (
     <DetailSearchDiv>
