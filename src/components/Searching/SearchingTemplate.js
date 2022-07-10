@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Pagination from '../common/Pagination';
-import data from '../../data.json';
-/*import axios from 'axios';*/
-import qs from 'qs';
-import axios from 'axios';
 
 const ColumnDiv = styled.div`
   display: flex;
@@ -83,44 +79,20 @@ const StyledSelect = styled.select`
   font-size: 14px;
 `;
 
-const SearchingTemplate = (props) => {
-  //const [posts, setPosts] = useState([]);
+const SearchingTemplate = ({ query, posts, searchData }) => {
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
 
   const offset = (page - 1) * limit;
 
-  /*const location = useLocation();
-  const query = qs.parse(location.search, {
-    ignoreQueryPrefix: true,
-  });
-  axios.defaults.paramsSerializer = (params) => {
-    return qs.stringify(params, { arrayFormat: 'repeat' });
-  };*/
-
-  //console.log(query);
-
-  /*const searchData = () => {
-    axios
-      .get(
-        'http://localhost:5000/api/search',
-        { params: props.query },
-        { withCredentials: true },
-      )
-      .then((res) => {
-        console.log(res);
-        props.setPosts(res.data);
-      });
-  };*/
-
   useEffect(() => {
-    props.searchData();
-  }, [props.query.q]);
+    searchData();
+  }, []);
 
   return (
     <div>
       <TextDiv>
-        <TotalText>검색 결과: {props.posts.length}</TotalText>
+        <TotalText>검색 결과: {posts.length}</TotalText>
         <DisplayNum>
           출력 건수
           <StyledSelect
@@ -143,8 +115,8 @@ const SearchingTemplate = (props) => {
       </ColumnDiv>
 
       <MappingDiv>
-        {props.posts &&
-          props.posts.slice(offset, offset + limit).map((bill) => (
+        {posts &&
+          posts.slice(offset, offset + limit).map((bill) => (
             <MappingList key={bill.id}>
               <ColumnText size="35%">
                 <StyledLink to={`/bill/${bill.id}`}>{bill.name}</StyledLink>
@@ -158,7 +130,7 @@ const SearchingTemplate = (props) => {
       </MappingDiv>
 
       <Pagination
-        total={props.posts.length}
+        total={posts.length}
         limit={limit}
         page={page}
         setPage={setPage}

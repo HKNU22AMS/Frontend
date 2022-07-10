@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Link, useLocation } from 'react-router-dom';
-import qs from 'qs';
-import axios from 'axios';
+import { Link } from 'react-router-dom';
 import Triangle from '../../lib/icons/Triangle';
 import data from '../../data.json';
 import Search from '../../lib/icons/Search';
@@ -173,24 +171,16 @@ const meetingArr = [
   { id: 10, name: '청문회' },
 ];
 
-const DetailTab = (props) => {
+const DetailTab = ({ query, setQuery, searchData, queries }) => {
   const [toggleBtn1, setToggleBtn1] = useState(true);
   const [toggleBtn2, setToggleBtn2] = useState(true);
   const [toggleBtn3, setToggleBtn3] = useState(true);
 
   const [committeeArr, setCommitteeArr] = useState([]);
   const [speakerName, setSpeakerName] = useState('');
-  const [meetingClass, setMeetingClass] = useState([]);
+  const [meetingClass, setMeetingClass] = useState(query.mC);
   const [committeeClass, setCommitteeClass] = useState([]);
   const [speakers, setSpeakers] = useState([]);
-
-  //const [queries, setQueries] = useState('');
-  const [init, setInit] = useState(false);
-  /*const location = useLocation();
-  const query = qs.parse(location.search, {
-    ignoreQueryPrefix: true,
-  });*/
-  //const queries = qs.stringify(props.query);
 
   const onClickTriangle = (id) => {
     id === 1
@@ -200,17 +190,13 @@ const DetailTab = (props) => {
       : setToggleBtn3(!toggleBtn3);
   };
 
-  useEffect(() => {
-    props.query.mC && setMeetingClass(meetingClass.concat(props.query.mC));
-  }, []);
+  /*useEffect(() => {
+    query.mC && setMeetingClass(meetingClass.concat(query.mC));
+  }, []);*/
 
   useEffect(() => {
-    init && props.setQuery({ ...props.query, mC: '', cC: '', sP: '' });
-  }, [init]);
-
-  useEffect(() => {
-    props.setQuery({
-      ...props.query,
+    setQuery({
+      ...query,
       mC: meetingClass,
       cC: committeeClass,
       sP: speakers,
@@ -247,12 +233,12 @@ const DetailTab = (props) => {
 
   const onClickApply = () => {
     console.log('적용');
-    props.searchData();
+    searchData();
   };
   const onClickInitial = () => {
     console.log('초기화');
-    setInit(!init);
-    props.searchData();
+    setQuery({ ...query, mC: '', cC: '', sP: '' });
+    searchData();
     setMeetingClass([]);
     setCommitteeClass([]);
     setSpeakerName('');
@@ -283,7 +269,11 @@ const DetailTab = (props) => {
                     item.name,
                   )
                 }
-                checked={meetingClass.includes(item.name) ? true : false}
+                checked={
+                  meetingClass && meetingClass.includes(item.name)
+                    ? true
+                    : false
+                }
               />{' '}
               {item.name}
             </CheckboxDiv>
@@ -312,7 +302,9 @@ const DetailTab = (props) => {
                     item,
                   )
                 }
-                checked={committeeClass.includes(item) ? true : false}
+                checked={
+                  committeeClass && committeeClass.includes(item) ? true : false
+                }
               />{' '}
               {item}
             </CheckboxDiv>
@@ -358,7 +350,7 @@ const DetailTab = (props) => {
           btntype="apply"
           to={{
             pathname: '/search',
-            search: `?${props.queries}`,
+            search: `?${queries}`,
           }}
           onClick={() => onClickApply()}
         >
@@ -367,7 +359,7 @@ const DetailTab = (props) => {
         <BasicBtn
           to={{
             pathname: '/search',
-            search: `?${props.queries}`,
+            search: `?${queries}`,
           }}
           onClick={() => onClickInitial()}
         >

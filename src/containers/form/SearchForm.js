@@ -25,6 +25,7 @@ const SearchForm = () => {
   axios.defaults.paramsSerializer = (params) => {
     return qs.stringify(params, { arrayFormat: 'repeat' });
   };
+
   useEffect(() => {
     setQuery(
       qs.parse(location.search, {
@@ -45,6 +46,7 @@ const SearchForm = () => {
   }, [query]);
 
   const searchData = () => {
+    console.log(query);
     axios
       .get(
         'http://localhost:5000/api/search',

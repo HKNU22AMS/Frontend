@@ -129,14 +129,14 @@ const meetingArr = [
   { id: 10, name: '청문회' },
 ];
 
-const DetailSearchTemp = (props) => {
+const DetailSearchTemp = ({ queryString, setQueryString }) => {
   const [startDate, setStartDate] = useState(false);
   const [endDate, setEndDate] = useState(false);
   const [meetingClass, setMeetingClass] = useState([]);
   const [assemNum, setAssemNum] = useState([]);
 
   useEffect(() => {
-    props.setQueryString({
+    setQueryString({
       aN: assemNum,
       sD: startDate ? setDate(startDate) : false,
       eD: endDate ? setDate(endDate) : false,
@@ -144,7 +144,7 @@ const DetailSearchTemp = (props) => {
       cC: '',
       sP: '',
     });
-  }, [assemNum, startDate, endDate, meetingClass]);
+  }, [assemNum, startDate, endDate, meetingClass, setQueryString]);
 
   const setDate = (date) => {
     const y = date.getFullYear() + '/';
@@ -160,7 +160,6 @@ const DetailSearchTemp = (props) => {
     } else {
       setAssemNum(assemNum.filter((el) => el !== value));
     }
-    props.queryString.aN = assemNum;
   };
 
   const onClickAll = (ischecked, e) => {
@@ -182,13 +181,7 @@ const DetailSearchTemp = (props) => {
           ])
         : setMeetingClass([]);
     }
-    props.queryString.mC = meetingClass;
   };
-
-  /*console.log('대수 선택: ', assemNum);
-  console.log('시작일: ', startDate);
-  console.log('종료일: ', endDate);
-  console.log('회의 구분: ', meetingClass);*/
 
   return (
     <DetailSearchDiv>

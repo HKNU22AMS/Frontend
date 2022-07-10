@@ -17,23 +17,23 @@ q=searchText
 &sP=speakers
 */
 router.get('/api/search', (req, res) => {
-  const params = req.query;
+  const params = req.params;
 
-  let result; // 필터링 총 결과
   const resultQ = data.bills.filter((bill) => bill.name.includes(params.q)); // 검색어 필터링 결과
   let resultA = []; // 대수 필터링 결과
   let resultD = []; // 기간 필터링 결과
   let resultM = []; // 회의구분 필터링 결과
   let resultC = []; // 위원회 필터링 결과
   let resultS = []; // 발언자 필터링 결과
+  let result; // 필터링 총 결과
 
   if (
-    params.aN === '' &&
+    params === {}
+    /*params &&
+    params.aN.length === 0 &&
     params.sD === '' &&
     params.eD === '' &&
-    (params.mC === '' || params.mC === []) &&
-    (params.cC === '' || params.cC === []) &&
-    (params.sP === '' || params.sP === [])
+    params.mC.length === 0*/
   ) {
     // 조건 없는 경우 검색어 결과만 반환
     res.send(resultQ);

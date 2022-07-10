@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Search from '../../lib/icons/Search';
 import { Link } from 'react-router-dom';
@@ -92,7 +92,6 @@ const SearchBar = ({ isLanding, placeh }) => {
     })
     .join('&');
 
-  //console.log(queryString);
   return (
     <>
       <InputDiv margin={isLanding}>
