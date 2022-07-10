@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import DatePicker from 'react-datepicker';
-
 import 'react-datepicker/dist/react-datepicker.css';
+import { searchStore } from '../../lib/store/searchStore';
 
 const DetailSearchDiv = styled.div`
   display: grid;
@@ -129,22 +129,10 @@ const meetingArr = [
   { id: 10, name: '청문회' },
 ];
 
-const DetailSearchTemp = ({ queryString, setQueryString }) => {
+const DetailSearchTemp = () => {
+  const { queryStore, setAN, setMC, setSD, setED } = searchStore();
   const [startDate, setStartDate] = useState(false);
   const [endDate, setEndDate] = useState(false);
-  const [meetingClass, setMeetingClass] = useState([]);
-  const [assemNum, setAssemNum] = useState([]);
-
-  useEffect(() => {
-    setQueryString({
-      aN: assemNum,
-      sD: startDate ? setDate(startDate) : false,
-      eD: endDate ? setDate(endDate) : false,
-      mC: meetingClass,
-      cC: '',
-      sP: '',
-    });
-  }, [assemNum, startDate, endDate, meetingClass, setQueryString]);
 
   const setDate = (date) => {
     const y = date.getFullYear() + '/';
@@ -154,20 +142,30 @@ const DetailSearchTemp = ({ queryString, setQueryString }) => {
     return dS;
   };
 
+  const onChangeSD = (date) => {
+    setStartDate(date);
+    setSD(setDate(date));
+  };
+
+  const onChangeED = (date) => {
+    setEndDate(date);
+    setED(setDate(date));
+  };
+
   const onClickAssem = (checked, value) => {
     if (checked) {
-      setAssemNum([...assemNum, value]);
+      setAN([...queryStore.aN, value]);
     } else {
-      setAssemNum(assemNum.filter((el) => el !== value));
+      setAN(queryStore.aN.filter((el) => el !== value));
     }
   };
 
   const onClickAll = (ischecked, e) => {
     if (e === 'A') {
-      ischecked ? setAssemNum([16, 17, 18, 19, 20, 21]) : setAssemNum([]);
+      ischecked ? setAN([16, 17, 18, 19, 20, 21]) : setAN([]);
     } else {
       ischecked
-        ? setMeetingClass([
+        ? setMC([
             '본회의',
             '상임위원회',
             '특별위원회',
@@ -179,7 +177,7 @@ const DetailSearchTemp = ({ queryString, setQueryString }) => {
             '공청회',
             '청문회',
           ])
-        : setMeetingClass([]);
+        : setMC([]);
     }
   };
 
@@ -202,7 +200,7 @@ const DetailSearchTemp = ({ queryString, setQueryString }) => {
                 onChange={(e) => {
                   onClickAssem(e.target.checked, item.num);
                 }}
-                checked={assemNum.includes(item.num) ? 'y' : ''}
+                checked={queryStore.aN.includes(item.num) ? 'y' : ''}
               />
             </StyledAssemText>
           ))}
@@ -227,7 +225,7 @@ const DetailSearchTemp = ({ queryString, setQueryString }) => {
           dateFormat="yyyy년 MM월 dd일"
           showPopperArrow={false}
           selected={startDate}
-          onChange={(date) => setStartDate(date)}
+          onChange={(date) => onChangeSD(date)}
           selectsStart
           startDate={startDate}
           endDate={endDate}
@@ -238,7 +236,7 @@ const DetailSearchTemp = ({ queryString, setQueryString }) => {
           dateFormat="yyyy년 MM월 dd일"
           showPopperArrow={false}
           selected={endDate}
-          onChange={(date) => setEndDate(date)}
+          onChange={(date) => onChangeED(date)}
           selectsEnd
           startDate={startDate}
           endDate={endDate}
@@ -255,16 +253,13 @@ const DetailSearchTemp = ({ queryString, setQueryString }) => {
             <ClassBtn
               key={item.id}
               onClick={() => {
-                !meetingClass.includes(item.name)
-                  ? setMeetingClass((meetingClass) => [
-                      ...meetingClass,
-                      item.name,
-                    ])
-                  : setMeetingClass(
-                      meetingClass.filter((button) => button !== item.name),
+                !queryStore.mC.includes(item.name)
+                  ? setMC([...queryStore.mC, item.name])
+                  : setMC(
+                      queryStore.mC.filter((button) => button !== item.name),
                     );
               }}
-              clicked={meetingClass.includes(item.name) ? 'y' : ''}
+              clicked={queryStore.mC.includes(item.name) ? 'y' : ''}
               size={item.name === 4 ? '13px' : ''}
             >
               {item.name}

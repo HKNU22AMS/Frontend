@@ -6,6 +6,7 @@ import axios from 'axios';
 import SearchBar from '../../components/common/SearchBar';
 import DetailTab from '../../components/Searching/DetailTab';
 import SearchingTemplate from '../../components/Searching/SearchingTemplate';
+import { searchStore } from '../../lib/store/searchStore';
 
 const SearchContentDiv = styled.div`
   display: grid;
@@ -17,6 +18,7 @@ const SearchContentDiv = styled.div`
 `;
 
 const SearchForm = () => {
+  const { queryStore, setQueryString, searchData } = searchStore();
   const [posts, setPosts] = useState([]);
   const [query, setQuery] = useState({});
   const [queries, setQueries] = useState('');
@@ -27,25 +29,26 @@ const SearchForm = () => {
   };
 
   useEffect(() => {
-    setQuery(
+    console.log(queryStore);
+    /*setQuery(
       qs.parse(location.search, {
         ignoreQueryPrefix: true,
       }),
-    );
-  }, [location.search]);
+    );*/
+  }, [queryStore]);
 
-  useEffect(() => {
+  /*useEffect(() => {
     setQueries(
-      Object.entries(query)
+      Object.entries(queryStore)
         .map((item) => {
           item[1] = item[1] === false ? '' : item[1];
           return item.join('=').replace(/,/g, '&' + item[0] + '=');
         })
         .join('&'),
     );
-  }, [query]);
+  }, [queryStore]);*/
 
-  const searchData = () => {
+  /*const searchData = () => {
     console.log(query);
     axios
       .get(
@@ -57,15 +60,11 @@ const SearchForm = () => {
         console.log(res);
         setPosts(res.data);
       });
-  };
+  };*/
 
   return (
     <div style={{ paddingBottom: '30px' }}>
-      <SearchBar
-        isLanding={false}
-        placeh="검색어를 입력하세요."
-        query={query}
-      />
+      <SearchBar isLanding={false} placeh="검색어를 입력하세요." />
       <SearchContentDiv>
         <DetailTab
           query={query}

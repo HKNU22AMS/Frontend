@@ -4,13 +4,14 @@ import { Link } from 'react-router-dom';
 import Triangle from '../../lib/icons/Triangle';
 import data from '../../data.json';
 import Search from '../../lib/icons/Search';
+import { searchStore } from '../../lib/store/searchStore';
 
 const TabDiv = styled.div`
   display: flex;
   flex-direction: column;
   border: 1px solid black;
   //height: auto;
-  height: 655px;
+  //height: 655px;
   width: 230px;
   margin-right: 15px;
   margin-top: 60px;
@@ -171,16 +172,22 @@ const meetingArr = [
   { id: 10, name: '청문회' },
 ];
 
-const DetailTab = ({ query, setQuery, searchData, queries }) => {
+const DetailTab = () => {
+  const { queryStore, setMC, setCC, setSP, searchData } = searchStore();
+
   const [toggleBtn1, setToggleBtn1] = useState(true);
   const [toggleBtn2, setToggleBtn2] = useState(true);
   const [toggleBtn3, setToggleBtn3] = useState(true);
 
   const [committeeArr, setCommitteeArr] = useState([]);
   const [speakerName, setSpeakerName] = useState('');
-  const [meetingClass, setMeetingClass] = useState(query.mC);
-  const [committeeClass, setCommitteeClass] = useState([]);
-  const [speakers, setSpeakers] = useState([]);
+
+  const queries = Object.entries(queryStore)
+    .map((item) => {
+      item[1] = item[1] === false ? '' : item[1];
+      return item.join('=').replace(/,/g, '&' + item[0] + '=');
+    })
+    .join('&');
 
   const onClickTriangle = (id) => {
     id === 1
@@ -190,18 +197,9 @@ const DetailTab = ({ query, setQuery, searchData, queries }) => {
       : setToggleBtn3(!toggleBtn3);
   };
 
-  /*useEffect(() => {
-    query.mC && setMeetingClass(meetingClass.concat(query.mC));
-  }, []);*/
-
   useEffect(() => {
-    setQuery({
-      ...query,
-      mC: meetingClass,
-      cC: committeeClass,
-      sP: speakers,
-    });
-  }, [meetingClass, committeeClass, speakers]);
+    console.log(queryStore);
+  }, [queryStore]);
 
   useEffect(() => {
     data.bills.map((bill) =>
@@ -223,12 +221,12 @@ const DetailTab = ({ query, setQuery, searchData, queries }) => {
     setSpeakerName(e.target.value);
   };
   const onClickSpeaker = () => {
-    speakers.includes(speakerName)
+    queryStore.sP.includes(speakerName)
       ? alert('이미 검색된 이름입니다.')
-      : setSpeakers([...speakers, speakerName]);
+      : setSP([...queryStore.sP, speakerName]);
   };
   const onClickDelete = (id) => {
-    setSpeakers(speakers.filter((el) => el !== speakers[id]));
+    setSP(queryStore.sP.filter((el) => el !== queryStore.sP[id]));
   };
 
   const onClickApply = () => {
@@ -237,136 +235,131 @@ const DetailTab = ({ query, setQuery, searchData, queries }) => {
   };
   const onClickInitial = () => {
     console.log('초기화');
-    setQuery({ ...query, mC: '', cC: '', sP: '' });
+    setMC('');
+    setCC('');
+    setSP('');
     searchData();
-    setMeetingClass([]);
-    setCommitteeClass([]);
-    setSpeakerName('');
-    setSpeakers([]);
   };
   return (
-    <TabDiv>
-      <TitleToggleDiv pl="33%">
-        회의 구분
-        <Triangle
-          size="20"
-          upsidedown={toggleBtn1.toString()}
-          onClick={() => onClickTriangle(1)}
-        />
-      </TitleToggleDiv>
-      {toggleBtn1 && (
-        <MeetingClassDiv>
-          {meetingArr.map((item) => (
-            <CheckboxDiv key={item.id}>
-              <input
-                id={item.id}
-                type="checkbox"
-                onChange={(e) =>
-                  onChangeSelect(
-                    meetingClass,
-                    setMeetingClass,
-                    e.target.checked,
-                    item.name,
-                  )
-                }
-                checked={
-                  meetingClass && meetingClass.includes(item.name)
-                    ? true
-                    : false
-                }
+    <div>
+      <TabDiv>
+        <TitleToggleDiv pl="33%">
+          회의 구분
+          <Triangle
+            size="20"
+            upsidedown={toggleBtn1.toString()}
+            onClick={() => onClickTriangle(1)}
+          />
+        </TitleToggleDiv>
+        {toggleBtn1 && (
+          <MeetingClassDiv>
+            {meetingArr.map((item) => (
+              <CheckboxDiv key={item.id}>
+                <input
+                  id={item.id}
+                  type="checkbox"
+                  onChange={(e) =>
+                    onChangeSelect(
+                      queryStore.mC,
+                      setMC,
+                      e.target.checked,
+                      item.name,
+                    )
+                  }
+                  checked={
+                    queryStore.mC && queryStore.mC.includes(item.name)
+                      ? true
+                      : false
+                  }
+                />{' '}
+                {item.name}
+              </CheckboxDiv>
+            ))}
+          </MeetingClassDiv>
+        )}
+        <TitleToggleDiv pl="29%">
+          위원회 구분
+          <Triangle
+            size="20"
+            upsidedown={toggleBtn2.toString()}
+            onClick={() => onClickTriangle(2)}
+          />
+        </TitleToggleDiv>
+        {toggleBtn2 && (
+          <CommitteeClassDiv>
+            {committeeArr.map((item, index) => (
+              <CheckboxDiv key={index}>
+                <input
+                  type="checkbox"
+                  onChange={(e) =>
+                    onChangeSelect(queryStore.cC, setCC, e.target.checked, item)
+                  }
+                  checked={
+                    queryStore.cC && queryStore.cC.includes(item) ? true : false
+                  }
+                />{' '}
+                {item}
+              </CheckboxDiv>
+            ))}
+          </CommitteeClassDiv>
+        )}
+        <TitleToggleDiv pl="38%">
+          발언자
+          <Triangle
+            size="20"
+            upsidedown={toggleBtn3.toString()}
+            onClick={() => onClickTriangle(3)}
+          />
+        </TitleToggleDiv>
+        {toggleBtn3 && (
+          <SpeakerDiv>
+            <SearchBox>
+              <SearchInput
+                placeholder="이름을 입력하세요."
+                value={speakerName}
+                onChange={(e) => onChangeSpeaker(e)}
               />{' '}
-              {item.name}
-            </CheckboxDiv>
-          ))}
-        </MeetingClassDiv>
-      )}
-      <TitleToggleDiv pl="29%">
-        위원회 구분
-        <Triangle
-          size="20"
-          upsidedown={toggleBtn2.toString()}
-          onClick={() => onClickTriangle(2)}
-        />
-      </TitleToggleDiv>
-      {toggleBtn2 && (
-        <CommitteeClassDiv>
-          {committeeArr.map((item, index) => (
-            <CheckboxDiv key={index}>
-              <input
-                type="checkbox"
-                onChange={(e) =>
-                  onChangeSelect(
-                    committeeClass,
-                    setCommitteeClass,
-                    e.target.checked,
-                    item,
-                  )
-                }
-                checked={
-                  committeeClass && committeeClass.includes(item) ? true : false
-                }
-              />{' '}
-              {item}
-            </CheckboxDiv>
-          ))}
-        </CommitteeClassDiv>
-      )}
-      <TitleToggleDiv pl="38%">
-        발언자
-        <Triangle
-          size="20"
-          upsidedown={toggleBtn3.toString()}
-          onClick={() => onClickTriangle(3)}
-        />
-      </TitleToggleDiv>
-      {toggleBtn3 && (
-        <SpeakerDiv>
-          <SearchBox>
-            <SearchInput
-              placeholder="이름을 입력하세요."
-              value={speakerName}
-              onChange={(e) => onChangeSpeaker(e)}
-            />{' '}
-            <SpeakerSearchBtn onClick={() => onClickSpeaker()}>
-              <Search size="20" />
-            </SpeakerSearchBtn>
-          </SearchBox>
-          <SpeakerNamesDiv>
-            {speakers &&
-              speakers.map((name, index) => (
-                <div
-                  key={index}
-                  value={name}
-                  onClick={() => onClickDelete(index)}
-                >
-                  <SpeakerName>{name}</SpeakerName>
-                </div>
-              ))}
-          </SpeakerNamesDiv>
-        </SpeakerDiv>
-      )}
-      <BtnDiv>
-        <BasicBtn
-          btntype="apply"
-          to={{
-            pathname: '/search',
-            search: `?${queries}`,
-          }}
-          onClick={() => onClickApply()}
-        >
-          적용
-        </BasicBtn>
-        <BasicBtn
-          to={{
-            pathname: '/search',
-            search: `?${queries}`,
-          }}
-          onClick={() => onClickInitial()}
-        >
-          초기화
-        </BasicBtn>
-      </BtnDiv>
-    </TabDiv>
+              <SpeakerSearchBtn onClick={() => onClickSpeaker()}>
+                <Search size="20" />
+              </SpeakerSearchBtn>
+            </SearchBox>
+            <SpeakerNamesDiv>
+              {queryStore.sP &&
+                queryStore.sP.map((name, index) => (
+                  <div
+                    key={index}
+                    value={name}
+                    onClick={() => onClickDelete(index)}
+                  >
+                    <SpeakerName>{name}</SpeakerName>
+                  </div>
+                ))}
+            </SpeakerNamesDiv>
+          </SpeakerDiv>
+        )}
+        <BtnDiv>
+          <BasicBtn
+            btntype="apply"
+            to={{
+              pathname: '/search',
+              search: `?${queries}`,
+            }}
+            onClick={() => onClickApply()}
+          >
+            적용
+          </BasicBtn>
+          <BasicBtn
+            to={{
+              pathname: '/search',
+              search: `?${queries}`,
+            }}
+            onClick={() => onClickInitial()}
+          >
+            초기화
+          </BasicBtn>
+        </BtnDiv>
+      </TabDiv>
+    </div>
   );
 };
 

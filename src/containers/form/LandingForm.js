@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import LandingTemplate from '../../components/Landing/LandingTemplate';
+import { searchStore } from '../../lib/store/searchStore';
 
 // 배경이미지
 const StyledBg = styled.div`
@@ -22,6 +23,20 @@ const StyledBg = styled.div`
 `;
 
 const LandingForm = () => {
+  const { setQueryStore } = searchStore();
+
+  useEffect(() => {
+    setQueryStore({
+      q: '',
+      aN: '',
+      sD: '',
+      eD: '',
+      mC: '',
+      cC: '',
+      sP: '',
+    });
+  }, [setQueryStore]);
+
   return (
     <div style={{ paddingBottom: '140px' }}>
       <StyledBg />

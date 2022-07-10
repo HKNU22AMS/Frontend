@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Search from '../../lib/icons/Search';
 import { Link } from 'react-router-dom';
 import Plus from '../../lib/icons/Plus';
 import DetailSearchTemp from '../Landing/DeatailSearchTemp';
+import { searchStore } from '../../lib/store/searchStore';
 
 const InputDiv = styled.div`
   display: flex;
@@ -62,17 +63,23 @@ const PlusBtn = styled.button`
 `;
 
 const SearchBar = ({ isLanding, placeh }) => {
+  const { queryStore, setQ } = searchStore();
+
   const [show, setShow] = useState(false);
   const [nextP, setNextP] = useState(false);
   const [searchText, setSearchText] = useState('');
-  const [queryString, setQueryString] = useState({
-    aN: '',
-    sD: '',
-    eD: '',
-    mC: '',
-    cC: '',
-    sP: '',
-  }); // 사용자 선택 정보
+
+  useEffect(() => {
+    if (!isLanding && queryStore.q && !searchText) {
+      setQ(queryStore.q);
+      setSearchText(queryStore.q);
+    }
+  }, []);
+
+  useEffect(() => {
+    setQ(searchText);
+    console.log(queryStore);
+  }, [searchText]);
 
   const onChangeText = (e) => {
     setSearchText(e);
@@ -85,7 +92,7 @@ const SearchBar = ({ isLanding, placeh }) => {
     nextP ? setNextP(true) : alert('2글자 이상 검색어를 입력해주세요.');
   };
 
-  const queries = Object.entries(queryString)
+  const queries = Object.entries(queryStore)
     .map((item) => {
       item[1] = item[1] === false ? '' : item[1];
       return item.join('=').replace(/,/g, '&' + item[0] + '=');
@@ -97,6 +104,7 @@ const SearchBar = ({ isLanding, placeh }) => {
       <InputDiv margin={isLanding}>
         <StyledInput
           type="text"
+          value={searchText}
           placeholder={placeh}
           onChange={(e) => {
             onChangeText(e.target.value);
@@ -105,7 +113,7 @@ const SearchBar = ({ isLanding, placeh }) => {
         <SearchLink
           to={{
             pathname: nextP ? '/search' : window.location.pathname,
-            search: nextP ? `?q=${searchText}&${queries}` : '',
+            search: nextP ? `?${queries}` : '',
           }}
           onClick={onClickSB}
           ///search?q=searchText&aN=assemNum&sD=startDate&eD=endDate&mC=meetingClass&cC=committeeClass&sP=speakers
@@ -118,12 +126,7 @@ const SearchBar = ({ isLanding, placeh }) => {
           </PlusBtn>
         )}
       </InputDiv>
-      {show ? (
-        <DetailSearchTemp
-          queryString={queryString}
-          setQueryString={setQueryString}
-        />
-      ) : null}
+      {show ? <DetailSearchTemp /> : null}
     </>
   );
 };
