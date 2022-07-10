@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import DatePicker from 'react-datepicker';
-
 import 'react-datepicker/dist/react-datepicker.css';
+import data from '../../data.json';
 
 const DetailSearchDiv = styled.div`
   display: grid;
   grid-template-columns: repeat(1, 0.5fr 3fr);
-  grid-template-rows: 0.75fr 0.75fr 1.5fr;
+  grid-template-rows: 0.75fr 0.75fr 1.5fr 0.75fr;
   gap: 10px 30px;
   margin-left: 0;
   background: rgba(0, 0, 0, 0.7);
   border-radius: 5px;
   padding: 1%;
   width: 48%;
-  height: 45%;
+  //height: 45%;
   color: white;
   z-index: 1;
   //box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.4);
@@ -31,11 +31,13 @@ const StyledAssemText = styled.div`
   padding-top: ${(props) => props.paddingt || null};
   padding-bottom: ${(props) => props.paddingb || null};
 `;
-const AssemblyText = styled.div`
+const Titletext = styled.div`
+  background: yellow;
   border-right: 2px solid white;
-  line-height: 55px;
+  line-height: ${(props) => props.size || null}; // assem,date: 55 class: 90
   text-align: center;
 `;
+
 const AssemblyDiv = styled.div`
   display: grid;
   grid-template-columns: repeat(6, 1fr);
@@ -43,12 +45,6 @@ const AssemblyDiv = styled.div`
   width: 85%;
 `;
 
-const MeetingDateText = styled.div`
-  color: white;
-  border-right: 2px solid white;
-  line-height: 55px;
-  text-align: center;
-`;
 const MeetingDateDiv = styled.div`
   color: white;
   display: flex;
@@ -64,12 +60,6 @@ const StyledDp = styled(DatePicker)`
   text-align: center;
 `;
 
-const MeetingClassText = styled.div`
-  color: white;
-  border-right: 2px solid white;
-  line-height: 90px;
-  text-align: center;
-`;
 const MeetingClassDiv = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -134,6 +124,10 @@ const DetailSearchTemp = (props) => {
   const [endDate, setEndDate] = useState(false);
   const [meetingClass, setMeetingClass] = useState([]);
   const [assemNum, setAssemNum] = useState([]);
+  //const [committeeArr, setCommitteeArr] = useState([]);
+  //const [committeeClass, setCommitteeClass] = useState([]);
+  const [speakerName, setSpeakerName] = useState('');
+  const [speakers, setSpeakers] = useState([]);
 
   useEffect(() => {
     props.setQueryString({
@@ -145,6 +139,14 @@ const DetailSearchTemp = (props) => {
       sP: '',
     });
   }, [assemNum, startDate, endDate, meetingClass]);
+
+  /*useEffect(() => {
+    data.bills.map((bill) =>
+      committeeArr.includes(bill.minute_id.committee)
+        ? ''
+        : setCommitteeArr([...committeeArr, bill.minute_id.committee]),
+    );
+  }, [committeeArr]);*/
 
   const setDate = (date) => {
     const y = date.getFullYear() + '/';
@@ -192,9 +194,9 @@ const DetailSearchTemp = (props) => {
 
   return (
     <DetailSearchDiv>
-      <AssemblyText>
+      <Titletext size="55px">
         <StyledTitle size="21px">대수</StyledTitle>
-      </AssemblyText>
+      </Titletext>
       <div style={{ display: 'flex' }}>
         <AssemblyDiv>
           {assemArr.map((item, idx) => (
@@ -226,9 +228,9 @@ const DetailSearchTemp = (props) => {
           </StyledAssemText>
         </AllCheckDiv>
       </div>
-      <MeetingDateText>
+      <Titletext size="55px">
         <StyledTitle>회의 기간</StyledTitle>
-      </MeetingDateText>
+      </Titletext>
       <MeetingDateDiv>
         <StyledDp
           dateFormat="yyyy년 MM월 dd일"
@@ -253,9 +255,9 @@ const DetailSearchTemp = (props) => {
           placeholderText="검색 종료 일자"
         />
       </MeetingDateDiv>
-      <MeetingClassText>
+      <Titletext size="90px">
         <StyledTitle>회의 구분</StyledTitle>
-      </MeetingClassText>
+      </Titletext>
       <div style={{ display: 'flex' }}>
         <MeetingClassDiv>
           {meetingArr.map((item) => (
@@ -289,6 +291,22 @@ const DetailSearchTemp = (props) => {
             />
           </StyledAssemText>
         </AllCheckDiv>
+      </div>
+      {/*<Titletext size="55px">
+        <StyledTitle>위원회 구분</StyledTitle>
+      </Titletext>
+      <select name="CommitteeClass">
+        <option value="All">전체</option>
+        {committeeArr.map((item) => (
+          <option value={item}>{item}</option>
+        ))}
+      </select>*/}
+      <Titletext size="55px">
+        <StyledTitle>발언자</StyledTitle>
+      </Titletext>
+      <div>
+        <div>searchBox</div>
+        <div>searchedlist</div>
       </div>
     </DetailSearchDiv>
   );
