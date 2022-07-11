@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Pagination from '../common/Pagination';
 import { searchStore } from '../../lib/store/searchStore';
+import axios from 'axios';
 
 const ColumnDiv = styled.div`
   display: flex;
@@ -80,10 +81,10 @@ const StyledSelect = styled.select`
   font-size: 14px;
 `;
 
-const SearchingTemplate = ({ query, posts }) => {
+const SearchingTemplate = ({ searchData }) => {
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
-  const { searchData } = searchStore();
+  const { posts } = searchStore();
 
   const offset = (page - 1) * limit;
 

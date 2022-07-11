@@ -78,8 +78,7 @@ const SearchBar = ({ isLanding, placeh }) => {
 
   useEffect(() => {
     setQ(searchText);
-    console.log(queryStore);
-  }, [searchText]);
+  }, [searchText, setQ]);
 
   const onChangeText = (e) => {
     setSearchText(e);

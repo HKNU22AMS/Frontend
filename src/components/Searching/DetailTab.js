@@ -172,8 +172,8 @@ const meetingArr = [
   { id: 10, name: '청문회' },
 ];
 
-const DetailTab = () => {
-  const { queryStore, setMC, setCC, setSP, searchData } = searchStore();
+const DetailTab = ({ searchData }) => {
+  const { queryStore, setMC, setCC, setSP } = searchStore();
 
   const [toggleBtn1, setToggleBtn1] = useState(true);
   const [toggleBtn2, setToggleBtn2] = useState(true);
@@ -198,8 +198,34 @@ const DetailTab = () => {
   };
 
   useEffect(() => {
-    console.log(queryStore);
-  }, [queryStore]);
+    if (queryStore.mC.length === 0) {
+      setMC('');
+    } else if (queryStore.cC.length === 0) {
+      setCC('');
+    } else if (queryStore.sP.length === 0) {
+      setSP('');
+    }
+  }, [queryStore.mC, queryStore.cC, queryStore.sP]);
+
+  /*useEffect(() => { // 발언자 검색 테스트용
+    let ind = 0;
+    let ind2 = 0;
+    let result2 = [];
+    let tmp2 = [];
+    const tmp =
+      queryStore.sP &&
+      queryStore.sP.map((i) => data.speakers.filter((s) => s.name === i));
+    for (ind = 0; ind < queryStore.sP.length; ind++) {
+      for (ind2 = 0; ind2 < tmp[ind].length; ind2++) {
+        tmp2 = data.bills.filter((bill) =>
+          bill.Speakers_id.includes(tmp[ind][ind2].id),
+        );
+        result2 = [...result2, tmp2];
+      }
+    }
+    console.log(tmp);
+    console.log('r', result2);
+  }, []);*/
 
   useEffect(() => {
     data.bills.map((bill) =>
@@ -231,10 +257,13 @@ const DetailTab = () => {
 
   const onClickApply = () => {
     console.log('적용');
+    console.log(queryStore);
     searchData();
   };
   const onClickInitial = () => {
     console.log('초기화');
+    console.log(queryStore);
+
     setMC('');
     setCC('');
     setSP('');

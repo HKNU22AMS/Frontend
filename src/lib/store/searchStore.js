@@ -11,6 +11,7 @@ export const searchStore = create((set, get) => ({
     cC: '',
     sP: '',
   },
+  posts: [],
 
   setQ: (input) => {
     set((state) => ({ queryStore: { ...state.queryStore, q: input } }));
@@ -36,14 +37,19 @@ export const searchStore = create((set, get) => ({
   setQueryStore: (input) => {
     set({ queryStore: input });
   },
+  setPosts: (input) => {
+    set({ posts: input });
+  },
 
-  searchData: async () => {
-    const queryStore = get().queryStore;
+  /*searchData: async (queryStore) => {
+    //const queryStore = get().queryStore;
+    //const posts = get().posts;
     const res = await axios.get(
       'http://localhost:5000/api/search',
       { params: queryStore },
       { withCredentials: true },
     );
+    set({ posts: res.data });
     console.log(res);
-  },
+  },*/
 }));

@@ -27,7 +27,8 @@
         "committee": "국방위원회",
         "meeting_date": "2021/02/01"
       },
-      "Graph": "그래프"
+      "Graph": "그래프",
+      "Speakers_id": [2, 3]
     },
     {
       "id": 3,
@@ -41,7 +42,8 @@
         "committee": "정무위원회",
         "meeting_date": "2011/04/01"
       },
-      "Graph": "그래프"
+      "Graph": "그래프",
+      "Speakers_id": [3, 4]
     },
     {
       "id": 4,
@@ -55,7 +57,8 @@
         "committee": "문화체육관광위원회",
         "meeting_date": "2020/05/01"
       },
-      "Graph": "그래프"
+      "Graph": "그래프",
+      "Speakers_id": [4, 5]
     },
     {
       "id": 5,
@@ -69,7 +72,8 @@
         "committee": "정보위원회",
         "meeting_date": "2019/04/01"
       },
-      "Graph": "그래프"
+      "Graph": "그래프",
+      "Speakers_id": [5, 6]
     },
     {
       "id": 6,
@@ -83,7 +87,8 @@
         "committee": "정치개혁특별위원회",
         "meeting_date": "2005/01/01"
       },
-      "Graph": "그래프"
+      "Graph": "그래프",
+      "Speakers_id": [6, 7]
     },
     {
       "id": 7,
@@ -97,7 +102,8 @@
         "committee": "환경노동위원회",
         "meeting_date": "2006/01/01"
       },
-      "Graph": "그래프"
+      "Graph": "그래프",
+      "Speakers_id": [7, 8]
     },
     {
       "id": 8,
@@ -111,7 +117,8 @@
         "committee": "행정안전위원회",
         "meeting_date": "2021/02/01"
       },
-      "Graph": "그래프"
+      "Graph": "그래프",
+      "Speakers_id": [8, 9]
     },
     {
       "id": 9,
@@ -125,7 +132,8 @@
         "committee": "여성가족위원회",
         "meeting_date": "2014/06/01"
       },
-      "Graph": "그래프"
+      "Graph": "그래프",
+      "Speakers_id": [10, 11]
     },
     {
       "id": 10,
@@ -139,7 +147,8 @@
         "committee": "예산결산특별위원회",
         "meeting_date": "2000/04/10"
       },
-      "Graph": "그래프"
+      "Graph": "그래프",
+      "Speakers_id": [11, 12]
     },
     {
       "id": 11,
@@ -153,7 +162,8 @@
         "committee": "환경노동위원회",
         "meeting_date": "2016/11/21"
       },
-      "Graph": "그래프"
+      "Graph": "그래프",
+      "Speakers_id": [12, 13]
     },
     {
       "id": 12,
@@ -167,7 +177,8 @@
         "committee": "행정안전위원회",
         "meeting_date": "2021/12/11"
       },
-      "Graph": "그래프"
+      "Graph": "그래프",
+      "Speakers_id": [13, 14]
     },
     {
       "id": 13,
@@ -180,7 +191,8 @@
         "committee": "여성가족위원회",
         "meeting_date": "2014/05/16"
       },
-      "Graph": "그래프"
+      "Graph": "그래프",
+      "Speakers_id": [14, 15]
     },
     {
       "id": 14,
@@ -193,7 +205,8 @@
         "committee": "예산결산특별위원회",
         "meeting_date": "2010/04/10"
       },
-      "Graph": "그래프"
+      "Graph": "그래프",
+      "Speakers_id": [15, 16]
     },
     {
       "id": 15,
@@ -206,7 +219,8 @@
         "committee": "문화체육관광위원회",
         "meeting_date": "2015/05/01"
       },
-      "Graph": "그래프"
+      "Graph": "그래프",
+      "Speakers_id": [16, 17]
     },
     {
       "id": 16,
@@ -219,7 +233,8 @@
         "committee": "교육위원회",
         "meeting_date": "2019/10/06"
       },
-      "Graph": "그래프"
+      "Graph": "그래프",
+      "Speakers_id": [17, 18]
     },
     {
       "id": 17,
@@ -232,7 +247,8 @@
         "committee": "정치개혁특별위원회",
         "meeting_date": "2005/07/17"
       },
-      "Graph": "그래프"
+      "Graph": "그래프",
+      "Speakers_id": [18, 19]
     },
     {
       "id": 18,
@@ -245,7 +261,8 @@
         "committee": "환경노동위원회",
         "meeting_date": "2018/08/06"
       },
-      "Graph": "그래프"
+      "Graph": "그래프",
+      "Speakers_id": [19, 20]
     },
     {
       "id": 19,
@@ -258,7 +275,8 @@
         "committee": "행정안전위원회",
         "meeting_date": "2021/12/15"
       },
-      "Graph": "그래프"
+      "Graph": "그래프",
+      "Speakers_id": [20, 1]
     },
     {
       "id": 20,
@@ -271,7 +289,8 @@
         "committee": "교육위원회",
         "meeting_date": "2020/11/11"
       },
-      "Graph": "그래프"
+      "Graph": "그래프",
+      "Speakers_id": [1, 2]
     }
   ],
   "minutes": [
@@ -489,52 +508,52 @@
     },
     {
       "id": 11,
-      "name": "전주혜",
+      "name": "전주",
       "affiliation": "국회의원"
     },
     {
       "id": 12,
-      "name": "윤동춘",
+      "name": "윤동",
       "affiliation": "경상북도지방경찰청장"
     },
     {
       "id": 13,
-      "name": "여준기",
+      "name": "여준",
       "affiliation": "경주시체육회장"
     },
     {
       "id": 14,
-      "name": "유진규",
+      "name": "유진",
       "affiliation": "경찰청교통국장"
     },
     {
       "id": 15,
-      "name": "박대출",
+      "name": "박대",
       "affiliation": "국회의원"
     },
     {
       "id": 16,
-      "name": "기동민",
+      "name": "기동",
       "affiliation": "국회의원"
     },
     {
       "id": 17,
-      "name": "김남국",
+      "name": "김남",
       "affiliation": "국회의원"
     },
     {
       "id": 18,
-      "name": "박재호",
+      "name": "박재",
       "affiliation": "국회의원"
     },
     {
       "id": 19,
-      "name": "김용민",
+      "name": "김용",
       "affiliation": "국회의원"
     },
     {
       "id": 20,
-      "name": "이수진",
+      "name": "이수",
       "affiliation": "국회의원"
     }
   ]
