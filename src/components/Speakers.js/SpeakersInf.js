@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import data from '../../data.json';
 
 const ImgDiv = styled.div`
   background: lightgray;
@@ -31,7 +30,14 @@ const TextDiv = styled.div`
   align-items: center;
   font-size: 1.2rem;
 `;
-const SpeakersInf = () => {
+const SpeakersInf = ({ sp, spid }) => {
+  const [curSp, setCurSp] = useState([]);
+
+  useEffect(() => {
+    setCurSp(sp && sp.filter((i) => i.id === Number(spid))[0]);
+    console.log(curSp);
+  }, [sp, spid]);
+
   return (
     <div style={{ display: 'flex' }}>
       <ImgDiv>
@@ -45,11 +51,11 @@ const SpeakersInf = () => {
       <DetailDiv>
         <TextDiv>
           <TitleDiv>이름</TitleDiv>
-          {data.speakers[data.bills[0].Speakers_id[0] - 1].name}
+          {curSp && curSp.name}
         </TextDiv>
         <TextDiv>
           <TitleDiv>소속</TitleDiv>
-          {data.speakers[data.bills[0].Speakers_id[0] - 1].affiliation}
+          {curSp && curSp.affiliation}
         </TextDiv>
       </DetailDiv>
     </div>

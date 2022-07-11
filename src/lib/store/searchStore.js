@@ -12,6 +12,7 @@ export const searchStore = create((set, get) => ({
     sP: '',
   },
   posts: [],
+  speakerPosts: [],
 
   setQ: (input) => {
     set((state) => ({ queryStore: { ...state.queryStore, q: input } }));
@@ -40,7 +41,9 @@ export const searchStore = create((set, get) => ({
   setPosts: (input) => {
     set({ posts: input });
   },
-
+  setSpeakerPosts: (input) => {
+    set({ speakerPosts: input });
+  },
   /*searchData: async (queryStore) => {
     //const queryStore = get().queryStore;
     //const posts = get().posts;

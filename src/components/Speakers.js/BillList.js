@@ -61,16 +61,10 @@ const MappingList = styled.li`
   color: black;
 `;*/
 
-const BillList = () => {
-  const [posts, setPosts] = useState([]);
-  //const [limit, setLimit] = useState(10);
+const BillList = ({ speakerPosts }) => {
   const limit = 10;
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
-
-  useEffect(() => {
-    setPosts(data.bills);
-  }, []);
 
   return (
     <div>
@@ -86,22 +80,25 @@ const BillList = () => {
         </ColumnDiv>
 
         <MappingDiv>
-          {posts.slice(offset, offset + limit).map((bill) => (
-            <MappingList key={bill.id}>
-              <ColumnText size="8%">{bill.id}</ColumnText>
-              <ColumnText size="8%">
-                제{bill.minute_id.assembly_num}대
-              </ColumnText>
-              <ColumnText>{bill.minute_id.meeting_class}</ColumnText>
-              <ColumnText>{bill.minute_id.committee}</ColumnText>
-              <ColumnText size="30%">{bill.name}</ColumnText>
-              <ColumnText size="14%">{bill.minute_id.meeting_date}</ColumnText>
-            </MappingList>
-          ))}
+          {speakerPosts &&
+            speakerPosts.slice(offset, offset + limit).map((bill, index) => (
+              <MappingList key={bill.id}>
+                <ColumnText size="8%">{index + 1}</ColumnText>
+                <ColumnText size="8%">
+                  제{bill.minute_id.assembly_num}대
+                </ColumnText>
+                <ColumnText>{bill.minute_id.meeting_class}</ColumnText>
+                <ColumnText>{bill.minute_id.committee}</ColumnText>
+                <ColumnText size="30%">{bill.name}</ColumnText>
+                <ColumnText size="14%">
+                  {bill.minute_id.meeting_date}
+                </ColumnText>
+              </MappingList>
+            ))}
         </MappingDiv>
       </ListDiv>
       <Pagination
-        total={posts.length}
+        total={speakerPosts.length}
         limit={limit}
         page={page}
         setPage={setPage}

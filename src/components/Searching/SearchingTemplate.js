@@ -123,7 +123,6 @@ const SearchingTemplate = ({ searchData }) => {
             <MappingList key={bill.id}>
               <ColumnText size="35%">
                 <StyledLink to={`/bill/${bill.id}`}>{bill.name}</StyledLink>
-                {/*<StyledLink to='/bill'>{bill.name}</StyledLink>*/}
               </ColumnText>
               <ColumnText>{bill.minute_id.meeting_class}</ColumnText>
               <ColumnText>{bill.minute_id.committee}</ColumnText>

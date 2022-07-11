@@ -18,11 +18,11 @@ const MainDiv = styled.div`
   //text-align: center;
 `;
 
-const BillMain = () => {
+const BillMain = ({ billInfo }) => {
   return (
     <div>
       <TitleText>주요 내용</TitleText>
-      <MainDiv>내용</MainDiv>
+      <MainDiv>{billInfo.main_content}</MainDiv>
     </div>
   );
 };

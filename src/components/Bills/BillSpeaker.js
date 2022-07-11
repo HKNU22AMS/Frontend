@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import data from '../../data.json';
 
 const TitleText = styled.div`
   font-weight: bold;
@@ -89,19 +90,31 @@ const AffDiv = styled.div`
   padding-top: 3px;
 `;
 
-const BillSpeaker = () => {
+const BillSpeaker = ({ billInfo, sp }) => {
+  const [billSps, setBillSps] = useState([]);
+
+  useEffect(() => {
+    setBillSps(sp && sp.filter((s) => billInfo.Speakers_id.includes(s.id)));
+    console.log(billSps);
+  }, [sp, billInfo.Speakers_id]);
+
   return (
     <div>
       <TitleText>발언자 목록</TitleText>
       <SpeakerContainer>
-        <SpeakerDiv>
-          <BubbleDiv>내용</BubbleDiv>
-          <Link to="/speaker/1">
-            <SpeakerImgDiv></SpeakerImgDiv>
-          </Link>
-          <NameDiv>전주혜</NameDiv>
-          <AffDiv>국회의원</AffDiv>
-        </SpeakerDiv>
+        {billSps &&
+          billSps.map((billSp) => {
+            return (
+              <SpeakerDiv key={billSp.id}>
+                <BubbleDiv>내용</BubbleDiv>
+                <Link to={`/speaker/${billSp.id}`}>
+                  <SpeakerImgDiv>이미지</SpeakerImgDiv>
+                </Link>
+                <NameDiv>{billSp.name}</NameDiv>
+                <AffDiv>{billSp.affiliation}</AffDiv>
+              </SpeakerDiv>
+            );
+          })}
       </SpeakerContainer>
     </div>
   );

@@ -1,23 +1,21 @@
-import React from 'react';
-//import styled from 'styled-components';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import BillList from './BillList';
 import SpeakersInf from './SpeakersInf';
+import data from '../../data.json';
 
-/*const PageDiv = styled.div`
-  margin-top: 2%;
-  width: 100%;
-  text-align: center;
-  font-size: 2rem;
-`;*/
-const SpeakerTemp = () => {
-  /*const DBget = () => {
+const SpeakerTemp = ({ speakerPosts }) => {
+  const { Speakerid } = useParams();
+  const [sp, setSp] = useState([]); // 임시 데이터
 
-  }*/
+  useEffect(() => {
+    setSp(data.speakers);
+  }, [Speakerid]);
+
   return (
     <div>
-      <SpeakersInf />
-      <BillList />
-      {/*<PageDiv>[ 페이지네이션 ]</PageDiv>*/}
+      <SpeakersInf sp={sp} spid={Speakerid} />
+      <BillList speakerPosts={speakerPosts} />
     </div>
   );
 };

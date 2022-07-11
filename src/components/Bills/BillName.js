@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const NameContainer = styled.div`
@@ -36,12 +36,11 @@ const BackBtn = styled(Link)`
   }
 `;
 
-const BillName = () => {
-  let { Billid } = useParams();
+const BillName = ({ billInfo }) => {
   return (
     <div>
       <BackBtn to="/search?">목록으로</BackBtn>
-      <NameContainer>법안{Billid}</NameContainer>
+      <NameContainer>{billInfo.name}</NameContainer>
     </div>
   );
 };
