@@ -62,7 +62,7 @@ const PlusBtn = styled.button`
   outline: 0;
 `;
 
-const SearchBar = ({ isLanding, placeh }) => {
+const SearchBar = ({ isLanding, placeh, searchData }) => {
   const { queryStore, setQ } = searchStore();
 
   const [show, setShow] = useState(false);
@@ -88,7 +88,13 @@ const SearchBar = ({ isLanding, placeh }) => {
     setShow(!show);
   };
   const onClickSB = () => {
-    nextP ? setNextP(true) : alert('2글자 이상 검색어를 입력해주세요.');
+    if (nextP) {
+      setNextP(true);
+      searchData();
+    } else {
+      alert('2글자 이상 검색어를 입력해주세요.');
+    }
+    //nextP ? setNextP(true) searchData()    : alert('2글자 이상 검색어를 입력해주세요.');
   };
 
   const queries = Object.entries(queryStore)

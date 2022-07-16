@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import data from '../../data.json';
 
 const TitleText = styled.div`
   font-weight: bold;
@@ -95,7 +94,6 @@ const BillSpeaker = ({ billInfo, sp }) => {
 
   useEffect(() => {
     setBillSps(sp && sp.filter((s) => billInfo.Speakers_id.includes(s.id)));
-    console.log(billSps);
   }, [sp, billInfo.Speakers_id]);
 
   return (
@@ -108,7 +106,14 @@ const BillSpeaker = ({ billInfo, sp }) => {
               <SpeakerDiv key={billSp.id}>
                 <BubbleDiv>내용</BubbleDiv>
                 <Link to={`/speaker/${billSp.id}`}>
-                  <SpeakerImgDiv>이미지</SpeakerImgDiv>
+                  <SpeakerImgDiv>
+                    <img
+                      alt="발언자 이미지"
+                      src="/images/billUser.png"
+                      width="70"
+                      height="70"
+                    />
+                  </SpeakerImgDiv>
                 </Link>
                 <NameDiv>{billSp.name}</NameDiv>
                 <AffDiv>{billSp.affiliation}</AffDiv>

@@ -42,7 +42,11 @@ const SearchForm = () => {
 
   return (
     <div style={{ paddingBottom: '30px' }}>
-      <SearchBar isLanding={false} placeh="검색어를 입력하세요." />
+      <SearchBar
+        isLanding={false}
+        placeh="검색어를 입력하세요."
+        searchData={searchData}
+      />
       <SearchContentDiv>
         <DetailTab searchData={searchData} />
         <SearchingTemplate searchData={searchData} />
