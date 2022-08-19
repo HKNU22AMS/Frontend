@@ -94,7 +94,6 @@ const SearchBar = ({ isLanding, placeh, searchData }) => {
     } else {
       alert('2글자 이상 검색어를 입력해주세요.');
     }
-    //nextP ? setNextP(true) searchData()    : alert('2글자 이상 검색어를 입력해주세요.');
   };
 
   const queries = Object.entries(queryStore)

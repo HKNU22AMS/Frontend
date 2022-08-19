@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { IoIosArrowBack } from 'react-icons/io';
 
 const NameContainer = styled.div`
   //margin-top: 3%;
@@ -16,8 +17,8 @@ const NameContainer = styled.div`
   font-weight: bold;
 `;
 const BackBtn = styled(Link)`
-  box-sizing: border-box;
-  display: block;
+  display: flex;
+  align-items: center;
   text-decoration: none;
   color: black;
   background: none;
@@ -25,11 +26,10 @@ const BackBtn = styled(Link)`
   border-radius: 5px;
   box-shadow: 1px 1px 5px silver;
   font-size: 1rem;
-  text-align: center;
   height: 30px;
-  width: 100px;
-  margin-top: 2%;
-  padding: 5px;
+  width: 90px;
+  margin: 1.5% 0 1.5% 0;
+  padding: 5px 10px 5px 10px;
   :hover {
     background: #727e75;
     color: white;
@@ -39,7 +39,10 @@ const BackBtn = styled(Link)`
 const BillName = ({ billInfo }) => {
   return (
     <div>
-      <BackBtn to="/search?">목록으로</BackBtn>
+      <BackBtn to="/search?">
+        <IoIosArrowBack size="20" />
+        목록으로
+      </BackBtn>
       <NameContainer>{billInfo.name}</NameContainer>
     </div>
   );

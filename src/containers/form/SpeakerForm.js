@@ -19,7 +19,6 @@ const SpeakerForm = () => {
     const res = await axios.get(
       `http://localhost:5000/api/speaker/${Speakerid}`,
     );
-    console.log(res.data);
     setSpeakerPosts(res.data);
   };
 

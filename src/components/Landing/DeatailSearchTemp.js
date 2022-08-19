@@ -14,7 +14,7 @@ const DetailSearchDiv = styled.div`
   border-radius: 5px;
   padding: 1%;
   width: 48%;
-  height: 45%;
+  //height: 45%;
   color: white;
   z-index: 1;
   //box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.4);

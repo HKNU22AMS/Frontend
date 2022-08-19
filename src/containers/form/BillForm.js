@@ -4,8 +4,8 @@ import BillTemplate from '../../components/Bills/BillTemplate';
 import SearchBar from '../../components/common/SearchBar';
 
 const BillContainer = styled.div`
-  margin-left: 7%;
-  margin-right: 6%;
+  margin-left: 20%;
+  margin-right: 20%;
 `;
 
 const BillForm = () => {
