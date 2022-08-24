@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import Pagination from '../common/Pagination';
+import ListPagination from '../common/Pagination';
 import { searchStore } from '../../lib/store/searchStore';
 import axios from 'axios';
 
@@ -131,7 +131,7 @@ const SearchingTemplate = ({ searchData }) => {
           ))}
       </MappingDiv>
 
-      <Pagination
+      <ListPagination
         total={posts.length}
         limit={limit}
         page={page}

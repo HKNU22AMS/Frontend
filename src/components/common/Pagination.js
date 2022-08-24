@@ -1,68 +1,59 @@
 import styled from 'styled-components';
+import Pagination from 'react-js-pagination';
+import { HiChevronLeft, HiChevronDoubleLeft } from 'react-icons/hi';
 
-const Nav = styled.nav`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 4px;
-  margin: 20px;
-`;
-
-const Button = styled.button`
-  border: none;
-  border-radius: 8px;
-  padding: 8px;
-  margin: 0;
-  background: #9ba39c;
-  color: white;
-  font-size: 1rem;
-
-  &:hover {
-    background: #d0dbd3;
-    cursor: pointer;
-    transform: translateY(-2px);
+const PaginationBox = styled.div`
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
   }
-
-  &[disabled] {
-    background: lightgrey;
-    cursor: revert;
-    transform: revert;
+  ul {
+    list-style: none;
+    padding: 0;
   }
-
-  &[aria-current] {
-    background: #727e75;
-    font-weight: bold;
-    cursor: revert;
-    transform: revert;
+  ul.pagination li {
+    display: inline-block;
+    margin: 0px 10px 0px 10px;
+  }
+  ul.pagination li a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #9ba39c;
+  }
+  ul.pagination li.active a {
+    font-weight: 600;
+    color: #727e75;
+  }
+  ul.pagination li a:hover,
+  ul.pagination li a.active {
+    font-weight: 600;
+    color: #727e75;
   }
 `;
 
-function Pagination({ total, limit, page, setPage }) {
-  const numPages = Math.ceil(total / limit);
-
+function ListPagination({ total, page, setPage, limit }) {
   return (
-    <>
-      <Nav>
-        <Button onClick={() => setPage(page - 1)} disabled={page === 1}>
-          &lt;
-        </Button>
-        {Array(numPages)
-          .fill()
-          .map((_, i) => (
-            <Button
-              key={i + 1}
-              onClick={() => setPage(i + 1)}
-              aria-current={page === i + 1 ? 'page' : null}
-            >
-              {i + 1}
-            </Button>
-          ))}
-        <Button onClick={() => setPage(page + 1)} disabled={page === numPages}>
-          &gt;
-        </Button>
-      </Nav>
-    </>
+    <PaginationBox>
+      <Pagination
+        totalItemsCount={total}
+        activePage={page}
+        onChange={setPage}
+        itemsCountPerPage={limit}
+        pageRangeDisplayed={10}
+        prevPageText={<HiChevronLeft size={'20'} />}
+        nextPageText={
+          <HiChevronLeft size={'20'} style={{ transform: 'rotate(180deg)' }} />
+        }
+        firstPageText={<HiChevronDoubleLeft />}
+        lastPageText={
+          <HiChevronDoubleLeft style={{ transform: 'rotate(180deg)' }} />
+        }
+      ></Pagination>
+    </PaginationBox>
   );
 }
 
-export default Pagination;
+export default ListPagination;
