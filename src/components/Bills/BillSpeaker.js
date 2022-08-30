@@ -44,8 +44,8 @@ const BubbleDiv = styled.div`
   background: #d0dbd3;
   border-radius: 10px;
   width: 450px;
-  height: 125px;
-  padding: 5px;
+  height: 120px;
+  padding: 10px;
   margin-bottom: 1em;
 
   :after {
@@ -60,20 +60,27 @@ const BubbleDiv = styled.div`
     border-bottom: 0;
     margin-left: -15px;
     margin-bottom: -15px;
-    /*border: 1em solid transparent;
-    border-top-color: #d0dbd3;
-    border-bottom: 0;
-    border-left: 0;
-    margin-left: -0.5em;
-    margin-bottom: -1em;*/
   }
 `;
-
+const BubbleText = styled.div`
+  height: 120px;
+  word-break: break-all;
+  overflow: auto;
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+  ::-webkit-scrollbar-thumb {
+    height: 5px;
+    background-color: #727e75;
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+`;
 const SpeakerImgDiv = styled.div`
   height: 70px;
   width: 70px;
-  border: 1px solid black;
-  border-radius: 100%;
   margin-top: 20px;
   margin-bottom: 10px;
 `;
@@ -89,37 +96,32 @@ const AffDiv = styled.div`
   padding-top: 3px;
 `;
 
-const BillSpeaker = ({ billInfo, sp }) => {
-  const [billSps, setBillSps] = useState([]);
-
-  useEffect(() => {
-    setBillSps(sp && sp.filter((s) => billInfo.Speakers_id.includes(s.id)));
-  }, [sp, billInfo.Speakers_id]);
-
+const BillSpeaker = ({ sp }) => {
   return (
     <div>
       <TitleText>발언자 목록</TitleText>
       <SpeakerContainer>
-        {billSps &&
-          billSps.map((billSp) => {
-            return (
-              <SpeakerDiv key={billSp.id}>
-                <BubbleDiv>내용</BubbleDiv>
-                <Link to={`/speaker/${billSp.id}`}>
-                  <SpeakerImgDiv>
-                    <img
-                      alt="발언자 이미지"
-                      src="/images/billUser.png"
-                      width="70"
-                      height="70"
-                    />
-                  </SpeakerImgDiv>
-                </Link>
-                <NameDiv>{billSp.name}</NameDiv>
-                <AffDiv>{billSp.affiliation}</AffDiv>
-              </SpeakerDiv>
-            );
-          })}
+        {sp.map((speakers) => {
+          return (
+            <SpeakerDiv key={speakers.speaker_id}>
+              <BubbleDiv>
+                <BubbleText>{speakers.content}</BubbleText>
+              </BubbleDiv>
+              <Link to={`/speaker/${speakers.speaker_id}`}>
+                <SpeakerImgDiv>
+                  <img
+                    alt="발언자 이미지"
+                    src="/images/billUser.png"
+                    width="70"
+                    height="70"
+                  />
+                </SpeakerImgDiv>
+              </Link>
+              <NameDiv>{speakers.speaker_name}</NameDiv>
+              <AffDiv>{speakers.affiliation}</AffDiv>
+            </SpeakerDiv>
+          );
+        })}
       </SpeakerContainer>
     </div>
   );

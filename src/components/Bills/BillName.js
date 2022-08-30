@@ -43,7 +43,7 @@ const BillName = ({ billInfo }) => {
         <IoIosArrowBack size="20" />
         목록으로
       </BackBtn>
-      <NameContainer>{billInfo.name}</NameContainer>
+      <NameContainer>{billInfo.bill_name}</NameContainer>
     </div>
   );
 };

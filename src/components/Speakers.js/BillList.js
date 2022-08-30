@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-//import { Link } from 'react-router-dom';
-import data from '../../data.json';
+import { Link } from 'react-router-dom';
 import Pagination from '../common/Pagination';
 
 const TitleDiv = styled.div`
@@ -33,6 +32,10 @@ const ColumnText = styled.div`
   font-size: 1.05rem;
   letter-spacing: -0.1rem;
 `;
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+`;
 const MappingDiv = styled.div`
   display: flex;
   flex-direction: column;
@@ -56,12 +59,8 @@ const MappingList = styled.li`
   margin-top: 0.3%;
   margin-bottom: 0.3%;
 `;
-/*const StyledLink = styled(Link)`
-  text-decoration: none;
-  color: black;
-`;*/
 
-const BillList = ({ speakerPosts }) => {
+const BillList = ({ bills }) => {
   const limit = 10;
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
@@ -80,25 +79,27 @@ const BillList = ({ speakerPosts }) => {
         </ColumnDiv>
 
         <MappingDiv>
-          {speakerPosts &&
-            speakerPosts.slice(offset, offset + limit).map((bill, index) => (
-              <MappingList key={bill.id}>
+          {bills &&
+            bills.slice(offset, offset + limit).map((bill, index) => (
+              <MappingList key={bill.bill_id}>
                 <ColumnText size="8%">{index + 1}</ColumnText>
-                <ColumnText size="8%">
-                  제{bill.minute_id.assembly_num}대
+                <ColumnText size="8%">제{bill.assembly_num}대</ColumnText>
+                <ColumnText>{bill.meeting_class}</ColumnText>
+                <ColumnText>{bill.committee}</ColumnText>
+                <ColumnText size="30%">
+                  <StyledLink to={`/bill/${bill.bill_id}`}>
+                    {bill.bill_name}
+                  </StyledLink>
                 </ColumnText>
-                <ColumnText>{bill.minute_id.meeting_class}</ColumnText>
-                <ColumnText>{bill.minute_id.committee}</ColumnText>
-                <ColumnText size="30%">{bill.name}</ColumnText>
                 <ColumnText size="14%">
-                  {bill.minute_id.meeting_date}
+                  {bill.meeting_date.substr(0, 10).replace(/-/g, '/')}
                 </ColumnText>
               </MappingList>
             ))}
         </MappingDiv>
       </ListDiv>
       <Pagination
-        total={speakerPosts.length}
+        total={bills.length}
         limit={limit}
         page={page}
         setPage={setPage}

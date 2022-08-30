@@ -61,20 +61,20 @@ const GraphDiv = styled.div`
   //height: 255px;
 `;
 
-const BillGraphs = ({ billInfo }) => {
+const BillGraphs = ({ billInfo, sp }) => {
   return (
     <div>
       <BillContentDiv>
         <div style={{ gridArea: 'a' }}>
           <TitleText>발언 인원</TitleText>
           <SpeakerNumDiv>
-            <NumberDiv>{billInfo.Speakers_id.length}</NumberDiv>
+            <NumberDiv>{sp.length}</NumberDiv>
             <UnitDiv>명</UnitDiv>
           </SpeakerNumDiv>
         </div>
         <div style={{ gridArea: 'b' }}>
           <TitleText>발언자별 발언 수</TitleText>
-          <GraphDiv>{billInfo.Graph}</GraphDiv>
+          <GraphDiv>{/*billInfo.graph */}</GraphDiv>
         </div>
         <div
           style={{
@@ -86,12 +86,12 @@ const BillGraphs = ({ billInfo }) => {
           }}
         >
           <TitleText>키워드 Top 5</TitleText>
-          <KeywordDiv>{billInfo.keyword}</KeywordDiv>
+          <KeywordDiv>{/*billInfo.keyword*/}</KeywordDiv>
         </div>
         <div style={{ gridArea: 'd' }}>
           <TitleText>요약된 글자수</TitleText>
           <SumNumDiv>
-            <NumberDiv>{billInfo.sumNum}</NumberDiv>
+            <NumberDiv>{/*billInfo.sumNum */}</NumberDiv>
             <UnitDiv>자</UnitDiv>
           </SumNumDiv>
         </div>

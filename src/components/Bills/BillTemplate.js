@@ -6,8 +6,6 @@ import BillMain from './BillMain';
 import BillSpeaker from './BillSpeaker';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import data from '../../data.json';
-//speaker 사용하기 위함, 어차피 db join 해서 사용하면 아이디로 바로 접근 가능..
 
 const PageContent = styled.div`
   font-family: 'Roboto';
@@ -16,41 +14,34 @@ const PageContent = styled.div`
 const BillTemplate = () => {
   const { Billid } = useParams();
   const [sp, setSp] = useState([]); // 임시 데이터
-  const [billInfo, setBillInfo] = useState({
-    id: -1,
-    Graph: '',
-    Speakers_id: [],
-    comment_sum: '',
-    keyword: '',
-    main_content: '',
-    minute_id: {
-      assembly_num: -1,
-      committee: '',
-      meeting_class: '',
-      meeting_date: '',
-    },
-    sumNum: -1,
-    name: '',
-  });
+  const [billInfo, setBI] = useState([]);
 
   const getBill = async (Billid) => {
-    const res = await axios.get(`http://localhost:5000/api/bill/${Billid}`);
-    console.log(res.data[0]);
-    setBillInfo(res.data[0]);
+    try {
+      const res = await axios.get(`http://localhost:5000/api/bill/${Billid}`);
+      setBI(res.data.b[0]);
+      setSp(res.data.s);
+    } catch (err) {
+      console.log(err);
+      return 0;
+    }
   };
 
   useEffect(() => {
     getBill(Billid);
-    setSp(data.speakers);
-  }, [Billid]);
+  }, []);
 
   return (
-    <PageContent>
-      <BillName billInfo={billInfo} />
-      <BillGraphs billInfo={billInfo} />
-      <BillMain billInfo={billInfo} />
-      <BillSpeaker billInfo={billInfo} sp={sp} />
-    </PageContent>
+    <>
+      {billInfo && sp && (
+        <PageContent>
+          <BillName billInfo={billInfo} />
+          <BillGraphs billInfo={billInfo} sp={sp} />
+          <BillMain billInfo={billInfo} />
+          <BillSpeaker billInfo={billInfo} sp={sp} />
+        </PageContent>
+      )}
+    </>
   );
 };
 

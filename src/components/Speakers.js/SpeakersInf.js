@@ -30,14 +30,7 @@ const TextDiv = styled.div`
   align-items: center;
   font-size: 1.2rem;
 `;
-const SpeakersInf = ({ sp, spid }) => {
-  const [curSp, setCurSp] = useState([]);
-
-  useEffect(() => {
-    setCurSp(sp && sp.filter((i) => i.id === Number(spid))[0]);
-    console.log(curSp);
-  }, [sp, spid]);
-
+const SpeakersInf = ({ sp }) => {
   return (
     <div style={{ display: 'flex' }}>
       <ImgDiv>
@@ -51,11 +44,11 @@ const SpeakersInf = ({ sp, spid }) => {
       <DetailDiv>
         <TextDiv>
           <TitleDiv>이름</TitleDiv>
-          {curSp && curSp.name}
+          {sp.speaker_name}
         </TextDiv>
         <TextDiv>
           <TitleDiv>소속</TitleDiv>
-          {curSp && curSp.affiliation}
+          {sp.affiliation}
         </TextDiv>
       </DetailDiv>
     </div>

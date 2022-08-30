@@ -120,13 +120,17 @@ const SearchingTemplate = ({ searchData }) => {
       <MappingDiv>
         {posts &&
           posts.slice(offset, offset + limit).map((bill) => (
-            <MappingList key={bill.id}>
+            <MappingList key={bill.bill_id}>
               <ColumnText size="35%">
-                <StyledLink to={`/bill/${bill.id}`}>{bill.name}</StyledLink>
+                <StyledLink to={`/bill/${bill.bill_id}`}>
+                  {bill.bill_name}
+                </StyledLink>
               </ColumnText>
-              <ColumnText>{bill.minute_id.meeting_class}</ColumnText>
-              <ColumnText>{bill.minute_id.committee}</ColumnText>
-              <ColumnText size="15%">{bill.minute_id.meeting_date}</ColumnText>
+              <ColumnText>{bill.meeting_class}</ColumnText>
+              <ColumnText>{bill.committee}</ColumnText>
+              <ColumnText size="15%">
+                {bill.meeting_date.substr(0, 10).replace(/-/g, '/')}
+              </ColumnText>
             </MappingList>
           ))}
       </MappingDiv>

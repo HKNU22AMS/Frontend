@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const fs = require('fs');
-const data = JSON.parse(fs.readFileSync('../src/data.json', 'utf8'));
+const db = require('../config/db');
+//const data = JSON.parse(fs.readFileSync('../src/data.json', 'utf8'));
 
 router.get('/api', (req, res) => {
-  res.send({ data: data });
+  res.send({ data: db });
 });
 
 /*
@@ -19,25 +20,63 @@ q=searchText
 
 router.get('/api/bill/:Billid', (req, res) => {
   const Billid = req.params.Billid;
-  const result = data.bills.filter((bill) => bill.id === Number(Billid));
-
-  res.send(result);
+  let billInfo = { b: [], s: [] };
+  // b.graph, b.keyword 미포함
+  db.query(
+    `SELECT b.bill_id, b.bill_name, b.main_content, b.comment_sum FROM bill as b LEFT JOIN proposal as p ON b.bill_id = p.bill_id LEFT JOIN speaker as s ON p.speaker_id2 = s.speaker_id LEFT JOIN remark as r ON s.speaker_id = r.speaker_id WHERE b.bill_id = ?`,
+    [Billid],
+    function (err, bill) {
+      if (err) {
+        console.log(err);
+      }
+      billInfo['b'] = bill;
+    },
+  );
+  db.query(
+    `SELECT r.speaker_id, r.content, s.speaker_name, s.affiliation FROM bill as b LEFT OUTER JOIN proposal as p ON b.bill_id = p.bill_id LEFT OUTER JOIN remark as r ON p.speaker_id2 = r.speaker_id LEFT OUTER JOIN speaker as s ON r.speaker_id = s.speaker_id WHERE b.bill_id = ?`,
+    [Billid],
+    function (err, speakers) {
+      if (err) {
+        console.log(err);
+      }
+      billInfo['s'] = speakers;
+      res.send(billInfo);
+    },
+  );
 });
 
 router.get('/api/speaker/:Speakerid', (req, res) => {
   const Speakerid = req.params.Speakerid;
-  const result = data.bills.filter((bill) =>
-    bill.Speakers_id.includes(Number(Speakerid)),
+  let speakerInfo = { s: [], b: [] };
+  db.query(
+    `SELECT * FROM speaker WHERE speaker_id = ?`,
+    [Speakerid],
+    function (err, speaker) {
+      if (err) {
+        console.log(err);
+      }
+      speakerInfo['s'] = speaker;
+    },
   );
-
-  res.send(result);
+  db.query(
+    `SELECT b.bill_id, b.bill_name, m.assembly_num, m.committee, m.meeting_date, m.meeting_class FROM bill as b LEFT OUTER JOIN proposal as p ON b.bill_id = p.bill_id LEFT OUTER JOIN speaker as s ON p.speaker_id2 = s.speaker_id LEFT OUTER JOIN remark as r ON s.speaker_id = r.speaker_id LEFT OUTER JOIN minute as m ON r.minute_id = m.minute_id WHERE s.speaker_id = ?`,
+    [Speakerid],
+    function (err, bills) {
+      if (err) {
+        console.log(err);
+      }
+      speakerInfo['b'] = bills;
+      console.log(speakerInfo);
+      res.send(speakerInfo);
+    },
+  );
 });
 
 router.get('/api/search', (req, res) => {
   const params = req.query;
   //console.log(params);
 
-  const resultQ = data.bills.filter((bill) => bill.name.includes(params.q)); // 검색어 필터링 결과
+  //const resultQ = data.bills.filter((bill) => bill.name.includes(params.q)); // 검색어 필터링 결과
   let resultA = []; // 대수 필터링 결과
   let resultD = []; // 기간 필터링 결과
   let resultM = []; // 회의구분 필터링 결과
@@ -54,8 +93,18 @@ router.get('/api/search', (req, res) => {
     params.cC === '' &&
     params.sP === ''
   ) {
-    res.send(resultQ);
-  } else {
+    db.query(
+      `SELECT b.bill_id, b.bill_name, m.committee, m.meeting_date, m.meeting_class FROM bill as b LEFT JOIN proposal as p ON b.bill_id = p.bill_id LEFT JOIN remark as r ON p.speaker_id2 = r.speaker_id LEFT JOIN minute as m ON r.minute_id = m.minute_id WHERE b.bill_name like ?`,
+      '%' + params.q + '%',
+      function (err, bills) {
+        if (err) {
+          console.log(err);
+        }
+        res.send(bills);
+      },
+    );
+    //res.send(resultQ);
+  } /*else {
     // 대수
     let tmp, ind, ind2;
     if (params.aN !== '') {
@@ -149,15 +198,15 @@ router.get('/api/search', (req, res) => {
           }
         }
       } else if (typeof params.sP === 'string') {*/
-      // 한번에 한명만 검색 가능,,
-      tmp = data.speakers.filter((s) => s.name === params.sP);
+  // 한번에 한명만 검색 가능,,
+  /*tmp = data.speakers.filter((s) => s.name === params.sP);
       resultS = resultQ.filter((bill) => bill.Speakers_id.includes(tmp[0].id));
       //}
       res.send(resultS);
     }
 
     //res.send(result);
-  }
+  }*/
 });
 
 module.exports = router;

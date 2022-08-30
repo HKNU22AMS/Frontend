@@ -13,24 +13,31 @@ const SpeakerContainer = styled.div`
 
 const SpeakerForm = () => {
   const { Speakerid } = useParams();
-  const { speakerPosts, setSpeakerPosts } = searchStore();
+  const [sp, setSp] = useState([]);
+  const [bills, setBills] = useState([]);
 
   const getSpeaker = async (Speakerid) => {
-    const res = await axios.get(
-      `http://localhost:5000/api/speaker/${Speakerid}`,
-    );
-    setSpeakerPosts(res.data);
+    try {
+      const res = await axios.get(
+        `http://localhost:5000/api/speaker/${Speakerid}`,
+      );
+      setBills(res.data.b);
+      setSp(res.data.s[0]);
+    } catch (err) {
+      console.log(err);
+      return 0;
+    }
   };
 
   useEffect(() => {
     getSpeaker(Speakerid);
-  }, [Speakerid]);
+  }, []);
 
   return (
     <div style={{ paddingBottom: '20px' }}>
       <SearchBar />
       <SpeakerContainer>
-        <SpeakerTemp speakerPosts={speakerPosts} />
+        <SpeakerTemp sp={sp} bills={bills} />
       </SpeakerContainer>
     </div>
   );

@@ -10,7 +10,7 @@ const TitleText = styled.div`
 const MainDiv = styled.div`
   height: 100px;
   //margin-bottom: 2%;
-  padding: 0.5%;
+  padding: 10px;
   //border: 2px solid lightgray;
   box-shadow: 0 0 20px -5px silver;
   border-radius: 10px;
