@@ -129,7 +129,7 @@ const SearchingTemplate = ({ searchData }) => {
               <ColumnText>{bill.meeting_class}</ColumnText>
               <ColumnText>{bill.committee}</ColumnText>
               <ColumnText size="15%">
-                {bill.meeting_date.substr(0, 10).replace(/-/g, '/')}
+                {bill.meeting_date.replace(/-/g, '/')}
               </ColumnText>
             </MappingList>
           ))}

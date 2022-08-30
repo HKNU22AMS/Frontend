@@ -92,7 +92,7 @@ const BillList = ({ bills }) => {
                   </StyledLink>
                 </ColumnText>
                 <ColumnText size="14%">
-                  {bill.meeting_date.substr(0, 10).replace(/-/g, '/')}
+                  {bill.meeting_date.replace(/-/g, '/')}
                 </ColumnText>
               </MappingList>
             ))}
