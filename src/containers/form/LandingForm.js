@@ -35,7 +35,7 @@ const LandingForm = () => {
       cC: '',
       sP: '',
     });
-  }, [setQueryStore]);
+  }, []);
 
   return (
     <div style={{ paddingBottom: '140px' }}>

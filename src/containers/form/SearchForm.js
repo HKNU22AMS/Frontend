@@ -23,30 +23,27 @@ const SearchForm = () => {
     return qs.stringify(params, { arrayFormat: 'repeat' });
   };
 
-  /*useEffect(() => {
-    console.log(queryStore);
-  }, [queryStore]);*/
-
-  const searchData = () => {
-    axios
-      .get(
+  const searchData = async () => {
+    try {
+      const res = await axios.get(
         'http://localhost:5000/api/search',
         { params: queryStore },
         { withCredentials: true },
-      )
-      .then((res) => {
-        console.log(res);
-        setPosts(res.data);
-      });
+      );
+      setPosts(res.data);
+    } catch (err) {
+      console.log(err);
+      return 0;
+    }
   };
+
+  useEffect(() => {
+    searchData();
+  }, [queryStore.q]);
 
   return (
     <div style={{ paddingBottom: '30px' }}>
-      <SearchBar
-        isLanding={false}
-        placeh="검색어를 입력하세요."
-        searchData={searchData}
-      />
+      <SearchBar isLanding={false} placeh="검색어를 입력하세요." />
       <SearchContentDiv>
         <DetailTab searchData={searchData} />
         <SearchingTemplate searchData={searchData} />

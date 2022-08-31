@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import ListPagination from '../common/Pagination';
 import { searchStore } from '../../lib/store/searchStore';
-import axios from 'axios';
 
 const ColumnDiv = styled.div`
   display: flex;
@@ -56,11 +55,8 @@ const StyledLink = styled(Link)`
 const TextDiv = styled.div`
   margin-top: 2%;
   margin-bottom: 5px;
-  //padding-left: 18%;
-  //padding-right: 7%;
   display: flex;
   justify-content: space-between;
-  //text-align: center;
   font-weight: bold;
   font-family: 'Roboto';
 `;
@@ -81,21 +77,17 @@ const StyledSelect = styled.select`
   font-size: 14px;
 `;
 
-const SearchingTemplate = ({ searchData }) => {
+const SearchingTemplate = () => {
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
   const { posts } = searchStore();
 
   const offset = (page - 1) * limit;
 
-  useEffect(() => {
-    searchData();
-  }, []);
-
   return (
     <div>
       <TextDiv>
-        <TotalText>검색 결과: {posts.length}</TotalText>
+        <TotalText>검색 결과: {posts ? posts.length : 0}</TotalText>
         <DisplayNum>
           출력 건수
           <StyledSelect
@@ -116,10 +108,9 @@ const SearchingTemplate = ({ searchData }) => {
         <ColumnText>위원회</ColumnText>
         <ColumnText size="15%">회의 일자</ColumnText>
       </ColumnDiv>
-
-      <MappingDiv>
-        {posts &&
-          posts.slice(offset, offset + limit).map((bill) => (
+      {posts.length !== 0 ? (
+        <MappingDiv>
+          {posts.slice(offset, offset + limit).map((bill) => (
             <MappingList key={bill.bill_id}>
               <ColumnText size="35%">
                 <StyledLink to={`/bill/${bill.bill_id}`}>
@@ -129,11 +120,24 @@ const SearchingTemplate = ({ searchData }) => {
               <ColumnText>{bill.meeting_class}</ColumnText>
               <ColumnText>{bill.committee}</ColumnText>
               <ColumnText size="15%">
-                {bill.meeting_date.replace(/-/g, '/')}
+                {bill.meeting_date.replace(/-/g, '.')}
               </ColumnText>
             </MappingList>
           ))}
-      </MappingDiv>
+        </MappingDiv>
+      ) : (
+        <div
+          style={{
+            width: '96%',
+            height: '80%',
+            display: 'flex',
+            justifyContent: 'center',
+            padding: '20px',
+          }}
+        >
+          검색 결과가 없습니다. 다시 검색해주세요.
+        </div>
+      )}
 
       <ListPagination
         total={posts.length}

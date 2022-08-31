@@ -1,7 +1,6 @@
-import axios from 'axios';
 import create from 'zustand';
 
-export const searchStore = create((set, get) => ({
+export const searchStore = create((set) => ({
   queryStore: {
     q: '',
     aN: '',
@@ -18,22 +17,46 @@ export const searchStore = create((set, get) => ({
     set((state) => ({ queryStore: { ...state.queryStore, q: input } }));
   },
   setAN: (input) => {
-    set((state) => ({ queryStore: { ...state.queryStore, aN: input } }));
+    if (input) {
+      set((state) => ({ queryStore: { ...state.queryStore, aN: input } }));
+    } else {
+      set((state) => ({ queryStore: { ...state.queryStore, aN: '' } }));
+    }
   },
   setMC: (input) => {
-    set((state) => ({ queryStore: { ...state.queryStore, mC: input } }));
+    if (input) {
+      set((state) => ({ queryStore: { ...state.queryStore, mC: input } }));
+    } else {
+      set((state) => ({ queryStore: { ...state.queryStore, mC: '' } }));
+    }
   },
   setSD: (input) => {
-    set((state) => ({ queryStore: { ...state.queryStore, sD: input } }));
+    if (input) {
+      set((state) => ({ queryStore: { ...state.queryStore, sD: input } }));
+    } else {
+      set((state) => ({ queryStore: { ...state.queryStore, sD: '' } }));
+    }
   },
   setED: (input) => {
-    set((state) => ({ queryStore: { ...state.queryStore, eD: input } }));
+    if (input) {
+      set((state) => ({ queryStore: { ...state.queryStore, eD: input } }));
+    } else {
+      set((state) => ({ queryStore: { ...state.queryStore, eD: '' } }));
+    }
   },
   setCC: (input) => {
-    set((state) => ({ queryStore: { ...state.queryStore, cC: input } }));
+    if (input) {
+      set((state) => ({ queryStore: { ...state.queryStore, cC: input } }));
+    } else {
+      set((state) => ({ queryStore: { ...state.queryStore, cC: '' } }));
+    }
   },
   setSP: (input) => {
-    set((state) => ({ queryStore: { ...state.queryStore, sP: input } }));
+    if (input) {
+      set((state) => ({ queryStore: { ...state.queryStore, sP: input } }));
+    } else {
+      set((state) => ({ queryStore: { ...state.queryStore, sP: '' } }));
+    }
   },
   setQueryStore: (input) => {
     set({ queryStore: input });
@@ -44,15 +67,4 @@ export const searchStore = create((set, get) => ({
   setSpeakerPosts: (input) => {
     set({ speakerPosts: input });
   },
-  /*searchData: async (queryStore) => {
-    //const queryStore = get().queryStore;
-    //const posts = get().posts;
-    const res = await axios.get(
-      'http://localhost:5000/api/search',
-      { params: queryStore },
-      { withCredentials: true },
-    );
-    set({ posts: res.data });
-    console.log(res);
-  },*/
 }));

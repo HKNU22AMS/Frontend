@@ -62,7 +62,7 @@ const PlusBtn = styled.button`
   outline: 0;
 `;
 
-const SearchBar = ({ isLanding, placeh, searchData }) => {
+const SearchBar = ({ isLanding, placeh }) => {
   const { queryStore, setQ } = searchStore();
 
   const [show, setShow] = useState(false);
@@ -71,14 +71,10 @@ const SearchBar = ({ isLanding, placeh, searchData }) => {
 
   useEffect(() => {
     if (!isLanding && queryStore.q && !searchText) {
-      setQ(queryStore.q);
       setSearchText(queryStore.q);
+      setQ(queryStore.q);
     }
   }, []);
-
-  useEffect(() => {
-    setQ(searchText);
-  }, [searchText, setQ]);
 
   const onChangeText = (e) => {
     setSearchText(e);
@@ -89,8 +85,8 @@ const SearchBar = ({ isLanding, placeh, searchData }) => {
   };
   const onClickSB = () => {
     if (nextP) {
+      setQ(searchText);
       setNextP(true);
-      searchData();
     } else {
       alert('2글자 이상 검색어를 입력해주세요.');
     }
