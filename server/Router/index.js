@@ -72,7 +72,7 @@ router.get('/api/speaker/:Speakerid', (req, res) => {
 
 router.get('/api/search', (req, res) => {
   const params = req.query;
-  console.log(params);
+  //console.log(params);
 
   let Qtext = `SELECT b.bill_id, b.bill_name, s.speaker_name, m.assembly_num, m.committee, m.meeting_date, m.meeting_class FROM bill as b LEFT JOIN proposal as p ON b.bill_id = p.bill_id LEFT JOIN speaker as s ON p.speaker_id2 = s.speaker_id LEFT JOIN remark as r ON s.speaker_id = r.speaker_id LEFT JOIN minute as m ON r.minute_id = m.minute_id WHERE b.bill_name LIKE ?`;
   let QInj = ['%' + params.q + '%'];
@@ -110,7 +110,6 @@ router.get('/api/search', (req, res) => {
     if (err) {
       console.log(err);
     }
-    // console.log(bills);
     res.send(bills);
   });
 });

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import SearchBar from '../../components/common/SearchBar';
 import SpeakerTemp from '../../components/Speakers.js/SpeakerTemp';
 import axios from 'axios';
-import { searchStore } from '../../lib/store/searchStore';
+
 const SpeakerContainer = styled.div`
   margin-top: 3%;
   margin-left: 20%;
@@ -31,6 +31,7 @@ const SpeakerForm = () => {
 
   useEffect(() => {
     getSpeaker(Speakerid);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

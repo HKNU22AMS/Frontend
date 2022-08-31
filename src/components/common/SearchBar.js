@@ -24,7 +24,6 @@ const InputDiv = styled.div`
 `;
 const StyledInput = styled.input`
   margin-top: 5px;
-  font-family: 'Roboto';
   color: #656565;
   background: none;
   border: none;
@@ -74,6 +73,7 @@ const SearchBar = ({ isLanding, placeh }) => {
       setSearchText(queryStore.q);
       setQ(queryStore.q);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onChangeText = (e) => {
@@ -116,7 +116,6 @@ const SearchBar = ({ isLanding, placeh }) => {
             search: nextP ? `?${queries}` : '',
           }}
           onClick={onClickSB}
-          ///search?q=searchText&aN=assemNum&sD=startDate&eD=endDate&mC=meetingClass&cC=committeeClass&sP=speakers
         >
           <Search size="40" />
         </SearchLink>

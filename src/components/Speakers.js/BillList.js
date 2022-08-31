@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Pagination from '../common/Pagination';
@@ -13,7 +13,6 @@ const ListDiv = styled.div`
   margin-bottom: 2%;
   width: 100%;
   height: 320px;
-  //border: 1px solid black;
 `;
 const ColumnDiv = styled.div`
   display: flex;
@@ -26,7 +25,6 @@ const ColumnDiv = styled.div`
   padding-bottom: 0.25%;
 `;
 const ColumnText = styled.div`
-  //border-bottom: 1px solid black;
   width: ${(props) => props.size || '20%'};
   text-decoration: none;
   font-size: 1.05rem;

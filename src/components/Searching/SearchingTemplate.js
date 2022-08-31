@@ -9,13 +9,13 @@ const ColumnDiv = styled.div`
   background: #727e75;
   border-radius: 10px;
   height: 50px;
-  width: 99%;
+  width: 100%;
   color: white;
   font-weight: 400;
   text-align: center;
   align-items: center;
-  font-family: 'Roboto';
-  font-size: 1.25rem;
+  font-size: 20px;
+  letter-spacing: -2px;
 `;
 const ColumnText = styled.div`
   width: ${(props) => props.size || '25%'};
@@ -23,7 +23,7 @@ const ColumnText = styled.div`
 `;
 const MappingDiv = styled.div`
   display: flex;
-  font-family: 'Roboto';
+
   height: 600px;
   flex-direction: column;
   text-align: center;
@@ -58,7 +58,6 @@ const TextDiv = styled.div`
   display: flex;
   justify-content: space-between;
   font-weight: bold;
-  font-family: 'Roboto';
 `;
 const TotalText = styled.div`
   padding-left: 30px;
@@ -85,7 +84,7 @@ const SearchingTemplate = () => {
   const offset = (page - 1) * limit;
 
   return (
-    <div>
+    <div style={{ width: '75%' }}>
       <TextDiv>
         <TotalText>검색 결과: {posts ? posts.length : 0}</TotalText>
         <DisplayNum>

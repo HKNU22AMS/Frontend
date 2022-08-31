@@ -8,16 +8,14 @@ import SearchingTemplate from '../../components/Searching/SearchingTemplate';
 import { searchStore } from '../../lib/store/searchStore';
 
 const SearchContentDiv = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 7fr;
-  margin-left: 7%;
-  margin-right: 6%;
-  margin-bottom: 4%;
-  height: 650px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 20px;
 `;
 
 const SearchForm = () => {
-  const { queryStore, setPosts } = searchStore();
+  const { queryStore, setPosts, posts } = searchStore();
 
   axios.defaults.paramsSerializer = (params) => {
     return qs.stringify(params, { arrayFormat: 'repeat' });
@@ -39,13 +37,14 @@ const SearchForm = () => {
 
   useEffect(() => {
     searchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [queryStore.q]);
 
   return (
-    <div style={{ paddingBottom: '30px' }}>
+    <div>
       <SearchBar isLanding={false} placeh="검색어를 입력하세요." />
       <SearchContentDiv>
-        <DetailTab searchData={searchData} />
+        <DetailTab searchData={searchData} posts={posts} />
         <SearchingTemplate searchData={searchData} />
       </SearchContentDiv>
     </div>

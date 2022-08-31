@@ -2,32 +2,28 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Triangle from '../../lib/icons/Triangle';
-import data from '../../data.json';
 import Search from '../../lib/icons/Search';
 import { searchStore } from '../../lib/store/searchStore';
 
 const TabDiv = styled.div`
   display: flex;
   flex-direction: column;
-  border: 1px solid black;
-  //height: auto;
-  //height: 655px;
+  border: 1px solid silver;
   width: 230px;
-  margin-right: 15px;
+  height: auto;
   margin-top: 60px;
-  box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.4);
-  font-family: 'Roboto';
+  box-shadow: 0 0 8px silver; //rgba(0, 0, 0, 0.4);
   overflow: hidden;
 `;
 const TitleToggleDiv = styled.div`
   display: flex;
-  height: 5%;
+  height: 40px;
   background: #d0dbd3;
   align-items: center;
   text-align: center;
   justify-items: center;
   justify-content: space-between;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
   padding-left: ${(props) => props.pl};
   letter-spacing: -0.15rem;
@@ -38,7 +34,7 @@ const MeetingClassDiv = styled.div`
   height: 160px;
   overflow: auto;
   ::-webkit-scrollbar {
-    width: 10px;
+    width: 8px;
   }
   ::-webkit-scrollbar-thumb {
     height: 15%;
@@ -172,7 +168,7 @@ const meetingArr = [
   { id: 10, name: '청문회' },
 ];
 
-const DetailTab = ({ searchData }) => {
+const DetailTab = ({ searchData, posts }) => {
   const { queryStore, setMC, setCC, setSP } = searchStore();
 
   const [toggleBtn1, setToggleBtn1] = useState(true);
@@ -205,34 +201,16 @@ const DetailTab = ({ searchData }) => {
     } else if (queryStore.sP.length === 0) {
       setSP('');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [queryStore.mC, queryStore.cC, queryStore.sP]);
 
-  /*useEffect(() => { // 발언자 검색 테스트용
-    let ind = 0;
-    let ind2 = 0;
-    let result2 = [];
-    let tmp2 = [];
-    const tmp =
-      queryStore.sP &&
-      queryStore.sP.map((i) => data.speakers.filter((s) => s.name === i));
-    for (ind = 0; ind < queryStore.sP.length; ind++) {
-      for (ind2 = 0; ind2 < tmp[ind].length; ind2++) {
-        tmp2 = data.bills.filter((bill) =>
-          bill.Speakers_id.includes(tmp[ind][ind2].id),
-        );
-        result2 = [...result2, tmp2];
-      }
-    }
-    console.log(tmp);
-    console.log('r', result2);
-  }, []);*/
-
   useEffect(() => {
-    data.bills.map((bill) =>
-      committeeArr.includes(bill.minute_id.committee)
+    posts.map((p) =>
+      committeeArr.includes(p.committee)
         ? ''
-        : setCommitteeArr([...committeeArr, bill.minute_id.committee]),
+        : setCommitteeArr([...committeeArr, p.committee]),
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [committeeArr]);
 
   const onChangeSelect = (com, setCom, checked, value) => {
@@ -257,20 +235,19 @@ const DetailTab = ({ searchData }) => {
 
   const onClickApply = () => {
     console.log('적용');
-    console.log(queryStore);
     searchData();
   };
   const onClickInitial = () => {
     console.log('초기화');
-    console.log(queryStore);
-
     setMC('');
     setCC('');
     setSP('');
+    setSpeakerName('');
     searchData();
   };
+
   return (
-    <div>
+    <>
       <TabDiv>
         <TitleToggleDiv pl="33%">
           회의 구분
@@ -360,7 +337,9 @@ const DetailTab = ({ searchData }) => {
                     value={name}
                     onClick={() => onClickDelete(index)}
                   >
-                    <SpeakerName>{name}</SpeakerName>
+                    <SpeakerName>
+                      {name.length > 3 ? name.substr(0, 3) + '...' : name}
+                    </SpeakerName>
                   </div>
                 ))}
             </SpeakerNamesDiv>
@@ -388,7 +367,7 @@ const DetailTab = ({ searchData }) => {
           </BasicBtn>
         </BtnDiv>
       </TabDiv>
-    </div>
+    </>
   );
 };
 
