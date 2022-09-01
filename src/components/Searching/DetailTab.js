@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Triangle from '../../lib/icons/Triangle';
 import Search from '../../lib/icons/Search';
 import { searchStore } from '../../lib/store/searchStore';
+import { stringify } from 'qs';
 
 const TabDiv = styled.div`
   display: flex;
@@ -168,22 +169,14 @@ const meetingArr = [
   { id: 10, name: '청문회' },
 ];
 
-const DetailTab = ({ searchData, posts }) => {
-  const { queryStore, setMC, setCC, setSP } = searchStore();
+const DetailTab = ({ searchData, getCom }) => {
+  const { queryStore, setMC, setCC, setSP, committeeArr } = searchStore();
 
   const [toggleBtn1, setToggleBtn1] = useState(true);
   const [toggleBtn2, setToggleBtn2] = useState(true);
   const [toggleBtn3, setToggleBtn3] = useState(true);
 
-  const [committeeArr, setCommitteeArr] = useState([]);
   const [speakerName, setSpeakerName] = useState('');
-
-  const queries = Object.entries(queryStore)
-    .map((item) => {
-      item[1] = item[1] === false ? '' : item[1];
-      return item.join('=').replace(/,/g, '&' + item[0] + '=');
-    })
-    .join('&');
 
   const onClickTriangle = (id) => {
     id === 1
@@ -194,24 +187,9 @@ const DetailTab = ({ searchData, posts }) => {
   };
 
   useEffect(() => {
-    if (queryStore.mC.length === 0) {
-      setMC('');
-    } else if (queryStore.cC.length === 0) {
-      setCC('');
-    } else if (queryStore.sP.length === 0) {
-      setSP('');
-    }
+    getCom();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [queryStore.mC, queryStore.cC, queryStore.sP]);
-
-  useEffect(() => {
-    posts.map((p) =>
-      committeeArr.includes(p.committee)
-        ? ''
-        : setCommitteeArr([...committeeArr, p.committee]),
-    );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [committeeArr]);
+  }, []);
 
   const onChangeSelect = (com, setCom, checked, value) => {
     if (checked) {
@@ -350,7 +328,7 @@ const DetailTab = ({ searchData, posts }) => {
             btntype="apply"
             to={{
               pathname: '/search',
-              search: `?${queries}`,
+              search: `?${stringify(queryStore, { arrayFormat: 'bracket' })}`,
             }}
             onClick={() => onClickApply()}
           >
@@ -359,7 +337,7 @@ const DetailTab = ({ searchData, posts }) => {
           <BasicBtn
             to={{
               pathname: '/search',
-              search: `?${queries}`,
+              search: `?${stringify(queryStore, { arrayFormat: 'bracket' })}`,
             }}
             onClick={() => onClickInitial()}
           >
