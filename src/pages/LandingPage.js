@@ -1,10 +1,11 @@
 import React from 'react';
+import LandingForm from '../containers/form/LandingForm';
 
 const LandingPage = () => {
   return (
-    <>
-      <div>랜딩 페이지 내용</div>
-    </>
+    <div>
+      <LandingForm />
+    </div>
   );
 };
 

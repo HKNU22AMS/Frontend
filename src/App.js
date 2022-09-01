@@ -11,12 +11,20 @@ function App() {
   return (
     <div>
       <Header />
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/bill" element={<BillPage />} />
-        <Route path="/search" element={<SearchPage />} />
-        <Route path="/speaker" element={<SpeakerPage />} />
-      </Routes>
+      <div
+        style={{
+          height: 'auto',
+          minHeight: '100%',
+          paddingBottom: '30px',
+        }}
+      >
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/bill/:Billid" element={<BillPage />} />
+          <Route path="/search" element={<SearchPage />} />
+          <Route path="/speaker/:Speakerid" element={<SpeakerPage />} />
+        </Routes>
+      </div>
       <Footer />
     </div>
   );

@@ -2,16 +2,20 @@ import React from 'react';
 import styled from 'styled-components';
 
 const FooterDiv = styled.div`
-  position: absolute;
+  /*position: absolute;
+  top: 100%;
   bottom: 0;
-  height: 100px;
-  width: 100%;
+  width: 100%;*/
+  position: relative;
+  height: 135px;
   background: gray;
   padding-top: 20px;
 `;
 
-const LogoText = styled.span`
+const LogoText = styled.div`
+  float: left;
   margin-left: 20%;
+  margin-top: 2%;
   font-family: 'ABeeZee';
   font-style: italic;
   font-size: 40px;
@@ -20,14 +24,16 @@ const LogoText = styled.span`
   color: rgba(255, 255, 255, 0.7);
 `;
 
-const CopyText = styled.span`
-  margin-left: 2%;
+const CopyText = styled.div`
+  float: left;
+  margin-left: 4%;
+  margin-top: 4%;
   font-family: 'ABeeZee';
   font-size: 14px;
   color: white;
 `;
 
-const Header = () => {
+const Footer = () => {
   return (
     <div>
       <FooterDiv>
@@ -38,4 +44,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default Footer;
