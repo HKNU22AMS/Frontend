@@ -3,7 +3,7 @@ const router = express.Router();
 const db = require('../config/db');
 
 router.get('/api', (req, res) => {
-  res.send('hello');
+  res.send('Welcome to HKNU AMS');
 });
 
 /*
@@ -30,7 +30,7 @@ router.get('/api/bill/:Billid', (req, res) => {
   let billInfo = { b: [], s: [] };
   // b.graph, b.keyword 미포함
   db.query(
-    `SELECT b.bill_id, b.bill_name, b.main_content, b.comment_sum FROM bill as b LEFT JOIN proposal as p ON b.bill_id = p.bill_id LEFT JOIN speaker as s ON p.speaker_id2 = s.speaker_id LEFT JOIN remark as r ON s.speaker_id = r.speaker_id WHERE b.bill_id = ?`,
+    `SELECT b.bill_id, b.bill_name, b.main_content FROM bill as b LEFT JOIN proposal as p ON b.bill_id = p.bill_id LEFT JOIN speaker as s ON p.speaker_id2 = s.speaker_id LEFT JOIN remark as r ON s.speaker_id = r.speaker_id WHERE b.bill_id = ?`,
     [Billid],
     function (err, bill) {
       if (err) {
@@ -87,11 +87,7 @@ router.get('/api/search', (req, res) => {
 
   if (params.aN !== '') {
     Qtext += ` AND m.assembly_num IN (?)`;
-    // if (typeof params.aN !== 'string' && params.aN.length >= 2) {
-    //   QInj = [...QInj, '(' + params.aN.join(',') + ')'];
-    // } else {
     QInj = [...QInj, params.aN];
-    // }
   }
   if (params.sD !== '') {
     Qtext += ` AND m.meeting_date >= ?`;

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import SearchBar from '../../components/common/SearchBar';
-import SpeakerTemp from '../../components/Speakers.js/SpeakerTemp';
+import SpeakerTemp from '../../components/Speakers/SpeakerTemp';
 import axios from 'axios';
 
 const SpeakerContainer = styled.div`
