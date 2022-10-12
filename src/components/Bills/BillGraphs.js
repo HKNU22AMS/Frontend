@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 const BillContentDiv = styled.div`
   display: flex;
-  gap: 2rem;
   width: 100%;
 `;
 const TitleText = styled.div`
@@ -16,7 +15,6 @@ const SpeakerNumDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 330px;
   height: 100px;
   padding: 10px;
 `;
@@ -36,7 +34,6 @@ const UnitDiv = styled.div`
 `;
 const MainDiv = styled.div`
   height: 100px;
-  width: 740px;
   padding: 10px;
   box-shadow: 0 0 20px -5px silver;
   border-radius: 10px;
@@ -46,14 +43,14 @@ const MainDiv = styled.div`
 const BillGraphs = ({ billInfo, sp }) => {
   return (
     <BillContentDiv>
-      <div>
+      <div style={{ width: '50%' }}>
         <TitleText>발언 인원</TitleText>
         <SpeakerNumDiv>
           <NumberDiv>{sp.length}</NumberDiv>
           <UnitDiv>명</UnitDiv>
         </SpeakerNumDiv>
       </div>
-      <div>
+      <div style={{ width: '100%' }}>
         <TitleText>주요 내용</TitleText>
         <MainDiv>{billInfo.main_content}</MainDiv>
       </div>

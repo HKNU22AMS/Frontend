@@ -8,6 +8,7 @@ import SearchBar from '../../components/common/SearchBar';
 const BillContainer = styled.div`
   margin-left: 20%;
   margin-right: 20%;
+  height: 100%;
 `;
 
 const BillForm = () => {

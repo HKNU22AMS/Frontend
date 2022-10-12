@@ -14,10 +14,21 @@ const InputDiv = styled.div`
   border-radius: 5px;
   background: rgba(255, 255, 255, 0.7);
   align-items: flex-start;
+  justify-content: center;
+  @media only screen and (max-width: 768px) {
+    ${(props) => {
+      return props.margin
+        ? `margin-top: 2%;
+        width: 80%`
+        : `margin-top: 1%;
+        margin-left: 20%;
+        width: 60%;`;
+    }}
+  }
   ${(props) => {
     return props.margin
       ? `margin-top: 2%;
-      width: 50%;`
+      width: 50%`
       : `margin-top: 1%;
       margin-left: 20%;
       width: 60%;`;

@@ -35,7 +35,7 @@ const SpeakerForm = () => {
   }, []);
 
   return (
-    <div style={{ paddingBottom: '20px' }}>
+    <div>
       <SearchBar />
       <SpeakerContainer>
         <SpeakerTemp sp={sp} bills={bills} />

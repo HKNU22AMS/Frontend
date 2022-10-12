@@ -13,6 +13,9 @@ const DetailSearchDiv = styled.div`
   background: rgba(0, 0, 0, 0.7);
   border-radius: 5px;
   padding: 1%;
+  @media only screen and (max-width: 768px) {
+    width: 79%;
+  }
   width: 48%;
   color: white;
   z-index: 1;
@@ -20,7 +23,8 @@ const DetailSearchDiv = styled.div`
 `;
 const StyledTitle = styled.span`
   font-size: ${(props) => props.size || '19px'};
-  padding-right: 15px;
+  padding-right: 13px;
+  letter-spacing: -0.15rem;
 `;
 const StyledAssemText = styled.div`
   text-align: center;
@@ -210,12 +214,17 @@ const DetailSearchTemp = () => {
               onChange={(e) => {
                 onClickAll(e.target.checked, 'A');
               }}
+              checked={
+                queryStore.aN && queryStore.aN.length === assemArr.length
+                  ? true
+                  : false
+              }
             />
           </StyledAssemText>
         </AllCheckDiv>
       </div>
       <MeetingDateText>
-        <StyledTitle>회의 기간</StyledTitle>
+        <StyledTitle>회의기간</StyledTitle>
       </MeetingDateText>
       <MeetingDateDiv>
         <StyledDp
@@ -242,7 +251,7 @@ const DetailSearchTemp = () => {
         />
       </MeetingDateDiv>
       <MeetingClassText>
-        <StyledTitle>회의 구분</StyledTitle>
+        <StyledTitle>회의구분</StyledTitle>
       </MeetingClassText>
       <div style={{ display: 'flex' }}>
         <MeetingClassDiv>
@@ -268,9 +277,14 @@ const DetailSearchTemp = () => {
           <StyledAssemText paddingt="25%">
             <input
               type="checkbox"
-              onClick={(e) => {
+              onChange={(e) => {
                 onClickAll(e.target.checked, 'C');
               }}
+              checked={
+                queryStore.mC && queryStore.mC.length === meetingArr.length
+                  ? true
+                  : false
+              }
             />
           </StyledAssemText>
         </AllCheckDiv>

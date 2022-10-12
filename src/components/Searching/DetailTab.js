@@ -13,7 +13,7 @@ const TabDiv = styled.div`
   width: 230px;
   height: auto;
   margin-top: 60px;
-  box-shadow: 0 0 8px silver; //rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 8px silver;
   overflow: hidden;
 `;
 const TitleToggleDiv = styled.div`
@@ -282,7 +282,7 @@ const DetailTab = ({ searchData, getCom }) => {
                     queryStore.cC && queryStore.cC.includes(item) ? true : false
                   }
                 />{' '}
-                {item}
+                {item.length > 10 ? item.slice(0, 10) + '...' : item}
               </CheckboxDiv>
             ))}
           </CommitteeClassDiv>

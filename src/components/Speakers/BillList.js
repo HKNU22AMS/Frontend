@@ -79,7 +79,7 @@ const BillList = ({ bills }) => {
         <MappingDiv>
           {bills &&
             bills.slice(offset, offset + limit).map((bill, index) => (
-              <MappingList key={bill.bill_id}>
+              <MappingList key={index}>
                 <ColumnText size="8%">{index + 1}</ColumnText>
                 <ColumnText size="8%">제{bill.assembly_num}대</ColumnText>
                 <ColumnText>{bill.meeting_class}</ColumnText>
@@ -90,7 +90,7 @@ const BillList = ({ bills }) => {
                   </StyledLink>
                 </ColumnText>
                 <ColumnText size="14%">
-                  {bill.meeting_date.replace(/-/g, '/')}
+                  {bill.meeting_date && bill.meeting_date.replace(/-/g, '/')}
                 </ColumnText>
               </MappingList>
             ))}

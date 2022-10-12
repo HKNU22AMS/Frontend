@@ -42,7 +42,7 @@ const SpeakersInf = ({ sp }) => {
       <DetailDiv>
         <TextDiv>
           <TitleDiv>이름</TitleDiv>
-          {sp.speaker_name}
+          {sp.name}
         </TextDiv>
         <TextDiv>
           <TitleDiv>소속</TitleDiv>

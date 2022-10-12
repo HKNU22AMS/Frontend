@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import ListPagination from '../common/Pagination';
+import Pagination from '../common/Pagination';
 import { searchStore } from '../../lib/store/searchStore';
 
 const ColumnDiv = styled.div`
@@ -109,8 +109,8 @@ const SearchingTemplate = () => {
       </ColumnDiv>
       {posts.length !== 0 ? (
         <MappingDiv>
-          {posts.slice(offset, offset + limit).map((bill) => (
-            <MappingList key={bill.bill_id}>
+          {posts.slice(offset, offset + limit).map((bill, ind) => (
+            <MappingList key={ind}>
               <ColumnText size="35%">
                 <StyledLink to={`/bill/${bill.bill_id}`}>
                   {bill.bill_name}
@@ -119,26 +119,27 @@ const SearchingTemplate = () => {
               <ColumnText>{bill.meeting_class}</ColumnText>
               <ColumnText>{bill.committee}</ColumnText>
               <ColumnText size="15%">
-                {bill.meeting_date.replace(/-/g, '.')}
+                {bill.meeting_date && bill.meeting_date.replace(/-/g, '.')}
               </ColumnText>
             </MappingList>
           ))}
         </MappingDiv>
       ) : (
-        <div
-          style={{
-            width: '96%',
-            height: '80%',
-            display: 'flex',
-            justifyContent: 'center',
-            padding: '20px',
-          }}
-        >
-          검색 결과가 없습니다. 다시 검색해주세요.
-        </div>
+        <MappingDiv>
+          <div
+            style={{
+              display: 'flex',
+              height: '100%',
+              justifyContent: 'center',
+              padding: '20px',
+            }}
+          >
+            검색 결과가 없습니다. 다시 검색해주세요.
+          </div>
+        </MappingDiv>
       )}
 
-      <ListPagination
+      <Pagination
         total={posts.length}
         limit={limit}
         page={page}

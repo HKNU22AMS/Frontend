@@ -2,12 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 
 const FooterDiv = styled.div`
-  /*position: absolute;
-  top: 100%;
+  position: absolute;
+  top: 108%;
   bottom: 0;
-  width: 100%;*/
-  position: relative;
   height: 135px;
+  width: 100%;
+  z-index: -1;
   background: gray;
   padding-top: 20px;
 `;

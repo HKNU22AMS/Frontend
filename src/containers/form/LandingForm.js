@@ -7,7 +7,7 @@ import { searchStore } from '../../lib/store/searchStore';
 const StyledBg = styled.div`
   position: absolute;
   width: 100%;
-  height: 1080px;
+  height: 110%;
   left: 0px;
   top: 0px;
   z-index: -1;

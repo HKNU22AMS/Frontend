@@ -117,7 +117,7 @@ const BillSpeaker = ({ sp }) => {
                   />
                 </SpeakerImgDiv>
               </Link>
-              <NameDiv>{speakers.speaker_name}</NameDiv>
+              <NameDiv>{speakers.name}</NameDiv>
               <AffDiv>{speakers.affiliation}</AffDiv>
             </SpeakerDiv>
           );
