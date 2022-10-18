@@ -51,7 +51,7 @@ const BillGraphs = ({ billInfo, sp }) => {
         </SpeakerNumDiv>
       </div>
       <div style={{ width: '100%' }}>
-        <TitleText>주요 내용</TitleText>
+        <TitleText>Top 5</TitleText>
         <MainDiv>{billInfo.main_content}</MainDiv>
       </div>
     </BillContentDiv>

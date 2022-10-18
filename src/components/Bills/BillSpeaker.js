@@ -15,9 +15,7 @@ const SpeakerContainer = styled.div`
   box-shadow: 0 0 20px -5px silver;
   border-radius: 10px;
   background: none;
-  //text-align: center;
   display: flex;
-  //flex-direction: column;
   overflow: auto;
   ::-webkit-scrollbar {
     width: 5px;
@@ -32,7 +30,6 @@ const SpeakerContainer = styled.div`
   }
 `;
 const SpeakerDiv = styled.div`
-  //width: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -43,7 +40,7 @@ const BubbleDiv = styled.div`
   position: relative;
   background: #d0dbd3;
   border-radius: 10px;
-  width: 450px;
+  width: 350px;
   height: 120px;
   padding: 10px;
   margin-bottom: 1em;

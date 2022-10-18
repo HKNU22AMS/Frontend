@@ -13,9 +13,6 @@ const DetailSearchDiv = styled.div`
   background: rgba(0, 0, 0, 0.7);
   border-radius: 5px;
   padding: 1%;
-  @media only screen and (max-width: 768px) {
-    width: 79%;
-  }
   width: 48%;
   color: white;
   z-index: 1;
@@ -266,7 +263,7 @@ const DetailSearchTemp = () => {
                     );
               }}
               clicked={queryStore.mC.includes(item.name) ? 'y' : ''}
-              size={item.name === 4 ? '13px' : ''}
+              size={item.id === 4 ? '14px' : ''}
             >
               {item.name}
             </ClassBtn>

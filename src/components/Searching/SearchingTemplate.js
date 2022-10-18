@@ -18,8 +18,9 @@ const ColumnDiv = styled.div`
   letter-spacing: -2px;
 `;
 const ColumnText = styled.div`
-  width: ${(props) => props.size || '25%'};
+  width: ${(props) => props.size || '20%'};
   text-decoration: none;
+  letter-spacing: -2px;
 `;
 const MappingDiv = styled.div`
   display: flex;
@@ -102,7 +103,7 @@ const SearchingTemplate = () => {
       </TextDiv>
 
       <ColumnDiv>
-        <ColumnText size="35%">법안</ColumnText>
+        <ColumnText size="45%">법안</ColumnText>
         <ColumnText>회의 구분</ColumnText>
         <ColumnText>위원회</ColumnText>
         <ColumnText size="15%">회의 일자</ColumnText>
@@ -111,7 +112,7 @@ const SearchingTemplate = () => {
         <MappingDiv>
           {posts.slice(offset, offset + limit).map((bill, ind) => (
             <MappingList key={ind}>
-              <ColumnText size="35%">
+              <ColumnText size="45%">
                 <StyledLink to={`/bill/${bill.bill_id}`}>
                   {bill.bill_name}
                 </StyledLink>

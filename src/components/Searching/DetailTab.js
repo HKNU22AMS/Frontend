@@ -212,11 +212,9 @@ const DetailTab = ({ searchData, getCom }) => {
   };
 
   const onClickApply = () => {
-    console.log('적용');
     searchData();
   };
   const onClickInitial = () => {
-    console.log('초기화');
     setMC('');
     setCC('');
     setSP('');
