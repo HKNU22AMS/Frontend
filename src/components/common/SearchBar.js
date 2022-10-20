@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Search from '../../lib/icons/Search';
 import { Link } from 'react-router-dom';
+import { stringify } from 'qs';
 import Plus from '../../lib/icons/Plus';
 import DetailSearchTemp from '../Landing/DeatailSearchTemp';
 import { searchStore } from '../../lib/store/searchStore';
@@ -13,10 +14,21 @@ const InputDiv = styled.div`
   border-radius: 5px;
   background: rgba(255, 255, 255, 0.7);
   align-items: flex-start;
+  justify-content: center;
+  @media only screen and (max-width: 768px) {
+    ${(props) => {
+      return props.margin
+        ? `margin-top: 2%;
+        width: 80%`
+        : `margin-top: 1%;
+        margin-left: 20%;
+        width: 60%;`;
+    }}
+  }
   ${(props) => {
     return props.margin
       ? `margin-top: 2%;
-      width: 50%;`
+      width: 50%`
       : `margin-top: 1%;
       margin-left: 20%;
       width: 60%;`;
@@ -24,7 +36,6 @@ const InputDiv = styled.div`
 `;
 const StyledInput = styled.input`
   margin-top: 5px;
-  font-family: 'Roboto';
   color: #656565;
   background: none;
   border: none;
@@ -39,11 +50,9 @@ const StyledInput = styled.input`
 const SearchLink = styled(Link)`
   text-decoration: none;
   color: black;
-  margin-top: 5px;
   justify-content: center;
   display: flex;
-  width: 50px;
-  height: 50px;
+  height: 100%;
   border: none;
   background: none;
   align-items: center;
@@ -63,7 +72,7 @@ const PlusBtn = styled.button`
 `;
 
 const SearchBar = ({ isLanding, placeh }) => {
-  const { queryStore, setQ } = searchStore();
+  const { queryStore, setQ, searchData } = searchStore();
 
   const [show, setShow] = useState(false);
   const [nextP, setNextP] = useState(false);
@@ -73,8 +82,15 @@ const SearchBar = ({ isLanding, placeh }) => {
     if (!isLanding && queryStore.q && !searchText) {
       setSearchText(queryStore.q);
       setQ(queryStore.q);
+      setNextP(true);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    setQ(searchText);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchText]);
 
   const onChangeText = (e) => {
     setSearchText(e);
@@ -83,21 +99,6 @@ const SearchBar = ({ isLanding, placeh }) => {
   const onClickPlus = () => {
     setShow(!show);
   };
-  const onClickSB = () => {
-    if (nextP) {
-      setQ(searchText);
-      setNextP(true);
-    } else {
-      alert('2글자 이상 검색어를 입력해주세요.');
-    }
-  };
-
-  const queries = Object.entries(queryStore)
-    .map((item) => {
-      item[1] = item[1] === false ? '' : item[1];
-      return item.join('=').replace(/,/g, '&' + item[0] + '=');
-    })
-    .join('&');
 
   return (
     <>
@@ -110,16 +111,35 @@ const SearchBar = ({ isLanding, placeh }) => {
             onChangeText(e.target.value);
           }}
         />
-        <SearchLink
-          to={{
-            pathname: nextP ? '/search' : window.location.pathname,
-            search: nextP ? `?${queries}` : '',
-          }}
-          onClick={onClickSB}
-          ///search?q=searchText&aN=assemNum&sD=startDate&eD=endDate&mC=meetingClass&cC=committeeClass&sP=speakers
-        >
-          <Search size="40" />
-        </SearchLink>
+        {nextP ? (
+          <SearchLink
+            to={{
+              pathname: '/search',
+              search: `?${stringify(queryStore, { arrayFormat: 'bracket' })}`,
+            }}
+            onClick={() => {
+              searchData();
+            }}
+          >
+            <Search size="40" />
+          </SearchLink>
+        ) : (
+          <div
+            style={{
+              height: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              marginRight: '3%',
+            }}
+          >
+            <Search
+              size="40"
+              onClick={() => {
+                alert('2글자 이상 검색어를 입력해주세요.');
+              }}
+            />
+          </div>
+        )}
         {isLanding && (
           <PlusBtn>
             <Plus size="20" onClick={onClickPlus} />

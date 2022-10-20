@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
@@ -9,15 +9,15 @@ const TitleText = styled.div`
   margin-bottom: 10px;
 `;
 const SpeakerContainer = styled.div`
-  height: 320px;
+  min-height: 320px;
   margin-bottom: 4%;
   padding: 2%;
   box-shadow: 0 0 20px -5px silver;
   border-radius: 10px;
   background: none;
-  //text-align: center;
-  display: flex;
-  //flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(${(props) => Math.ceil(props.num / 2)}, auto);
+  gap: 15px;
   overflow: auto;
   ::-webkit-scrollbar {
     width: 5px;
@@ -32,7 +32,6 @@ const SpeakerContainer = styled.div`
   }
 `;
 const SpeakerDiv = styled.div`
-  //width: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -43,7 +42,7 @@ const BubbleDiv = styled.div`
   position: relative;
   background: #d0dbd3;
   border-radius: 10px;
-  width: 450px;
+  width: 350px;
   height: 120px;
   padding: 10px;
   margin-bottom: 1em;
@@ -100,7 +99,7 @@ const BillSpeaker = ({ sp }) => {
   return (
     <div>
       <TitleText>발언자 목록</TitleText>
-      <SpeakerContainer>
+      <SpeakerContainer num={sp.length}>
         {sp.map((speakers) => {
           return (
             <SpeakerDiv key={speakers.speaker_id}>
@@ -117,7 +116,7 @@ const BillSpeaker = ({ sp }) => {
                   />
                 </SpeakerImgDiv>
               </Link>
-              <NameDiv>{speakers.speaker_name}</NameDiv>
+              <NameDiv>{speakers.name}</NameDiv>
               <AffDiv>{speakers.affiliation}</AffDiv>
             </SpeakerDiv>
           );

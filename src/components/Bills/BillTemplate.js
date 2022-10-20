@@ -1,45 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
 import BillGraphs from './BillGraphs';
 import BillName from './BillName';
-import BillMain from './BillMain';
 import BillSpeaker from './BillSpeaker';
-import { useParams } from 'react-router-dom';
-import axios from 'axios';
 
-const PageContent = styled.div`
-  font-family: 'Roboto';
-`;
-
-const BillTemplate = () => {
-  const { Billid } = useParams();
-  const [sp, setSp] = useState([]); // 임시 데이터
-  const [billInfo, setBI] = useState([]);
-
-  const getBill = async (Billid) => {
-    try {
-      const res = await axios.get(`http://localhost:5000/api/bill/${Billid}`);
-      setBI(res.data.b[0]);
-      setSp(res.data.s);
-    } catch (err) {
-      console.log(err);
-      return 0;
-    }
-  };
+const BillTemplate = ({ billInfo, sp }) => {
+  const [TopList, setTL] = useState([]);
 
   useEffect(() => {
-    getBill(Billid);
-  }, []);
-
+    setTL(billInfo.main_content && billInfo.main_content.split(','));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [billInfo]);
   return (
     <>
-      {billInfo && sp && (
-        <PageContent>
+      {billInfo && sp && TopList && (
+        <div>
           <BillName billInfo={billInfo} />
-          <BillGraphs billInfo={billInfo} sp={sp} />
-          <BillMain billInfo={billInfo} />
+          <BillGraphs TopList={TopList} sp={sp} />
           <BillSpeaker billInfo={billInfo} sp={sp} />
-        </PageContent>
+        </div>
       )}
     </>
   );

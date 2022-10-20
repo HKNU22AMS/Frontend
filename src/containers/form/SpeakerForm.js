@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import SearchBar from '../../components/common/SearchBar';
-import SpeakerTemp from '../../components/Speakers.js/SpeakerTemp';
+import SpeakerTemp from '../../components/Speakers/SpeakerTemp';
 import axios from 'axios';
-import { searchStore } from '../../lib/store/searchStore';
+
 const SpeakerContainer = styled.div`
   margin-top: 3%;
   margin-left: 20%;
@@ -31,10 +31,11 @@ const SpeakerForm = () => {
 
   useEffect(() => {
     getSpeaker(Speakerid);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <div style={{ paddingBottom: '20px' }}>
+    <div>
       <SearchBar />
       <SpeakerContainer>
         <SpeakerTemp sp={sp} bills={bills} />

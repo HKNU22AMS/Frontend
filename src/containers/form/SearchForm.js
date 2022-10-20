@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import qs from 'qs';
+import { stringify } from 'qs';
 import axios from 'axios';
 import SearchBar from '../../components/common/SearchBar';
 import DetailTab from '../../components/Searching/DetailTab';
@@ -8,45 +8,25 @@ import SearchingTemplate from '../../components/Searching/SearchingTemplate';
 import { searchStore } from '../../lib/store/searchStore';
 
 const SearchContentDiv = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 7fr;
-  margin-left: 7%;
-  margin-right: 6%;
-  margin-bottom: 4%;
-  height: 650px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 20px;
 `;
 
 const SearchForm = () => {
-  const { queryStore, setPosts } = searchStore();
+  const { posts, searchData, getCom } = searchStore();
 
   axios.defaults.paramsSerializer = (params) => {
-    return qs.stringify(params, { arrayFormat: 'repeat' });
+    return stringify(params, { arrayFormat: 'repeat' });
   };
-
-  const searchData = async () => {
-    try {
-      const res = await axios.get(
-        'http://localhost:5000/api/search',
-        { params: queryStore },
-        { withCredentials: true },
-      );
-      setPosts(res.data);
-    } catch (err) {
-      console.log(err);
-      return 0;
-    }
-  };
-
-  useEffect(() => {
-    searchData();
-  }, [queryStore.q]);
 
   return (
-    <div style={{ paddingBottom: '30px' }}>
+    <div>
       <SearchBar isLanding={false} placeh="검색어를 입력하세요." />
       <SearchContentDiv>
-        <DetailTab searchData={searchData} />
-        <SearchingTemplate searchData={searchData} />
+        <DetailTab searchData={searchData} posts={posts} getCom={getCom} />
+        <SearchingTemplate />
       </SearchContentDiv>
     </div>
   );

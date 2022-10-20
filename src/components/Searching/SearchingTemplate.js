@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import ListPagination from '../common/Pagination';
+import Pagination from '../common/Pagination';
 import { searchStore } from '../../lib/store/searchStore';
 
 const ColumnDiv = styled.div`
@@ -9,22 +9,22 @@ const ColumnDiv = styled.div`
   background: #727e75;
   border-radius: 10px;
   height: 50px;
-  width: 99%;
+  width: 100%;
   color: white;
   font-weight: 400;
   text-align: center;
   align-items: center;
-  font-family: 'Roboto';
-  font-size: 1.25rem;
+  font-size: 20px;
+  letter-spacing: -2px;
 `;
 const ColumnText = styled.div`
-  width: ${(props) => props.size || '25%'};
+  width: ${(props) => props.size || '20%'};
   text-decoration: none;
+  letter-spacing: -2px;
 `;
 const MappingDiv = styled.div`
   display: flex;
-  font-family: 'Roboto';
-  height: 600px;
+  min-height: 600px;
   flex-direction: column;
   text-align: center;
   overflow: auto;
@@ -46,6 +46,7 @@ const MappingList = styled.li`
   margin-top: 1.3%;
   margin-bottom: 1.3%;
   display: flex;
+  align-items: center;
 `;
 const StyledLink = styled(Link)`
   text-decoration: none;
@@ -58,7 +59,6 @@ const TextDiv = styled.div`
   display: flex;
   justify-content: space-between;
   font-weight: bold;
-  font-family: 'Roboto';
 `;
 const TotalText = styled.div`
   padding-left: 30px;
@@ -85,7 +85,7 @@ const SearchingTemplate = () => {
   const offset = (page - 1) * limit;
 
   return (
-    <div>
+    <div style={{ width: '75%' }}>
       <TextDiv>
         <TotalText>검색 결과: {posts ? posts.length : 0}</TotalText>
         <DisplayNum>
@@ -103,16 +103,16 @@ const SearchingTemplate = () => {
       </TextDiv>
 
       <ColumnDiv>
-        <ColumnText size="35%">법안</ColumnText>
+        <ColumnText size="45%">법안</ColumnText>
         <ColumnText>회의 구분</ColumnText>
         <ColumnText>위원회</ColumnText>
         <ColumnText size="15%">회의 일자</ColumnText>
       </ColumnDiv>
       {posts.length !== 0 ? (
         <MappingDiv>
-          {posts.slice(offset, offset + limit).map((bill) => (
-            <MappingList key={bill.bill_id}>
-              <ColumnText size="35%">
+          {posts.slice(offset, offset + limit).map((bill, ind) => (
+            <MappingList key={ind}>
+              <ColumnText size="45%">
                 <StyledLink to={`/bill/${bill.bill_id}`}>
                   {bill.bill_name}
                 </StyledLink>
@@ -120,26 +120,27 @@ const SearchingTemplate = () => {
               <ColumnText>{bill.meeting_class}</ColumnText>
               <ColumnText>{bill.committee}</ColumnText>
               <ColumnText size="15%">
-                {bill.meeting_date.replace(/-/g, '.')}
+                {bill.meeting_date && bill.meeting_date.replace(/-/g, '.')}
               </ColumnText>
             </MappingList>
           ))}
         </MappingDiv>
       ) : (
-        <div
-          style={{
-            width: '96%',
-            height: '80%',
-            display: 'flex',
-            justifyContent: 'center',
-            padding: '20px',
-          }}
-        >
-          검색 결과가 없습니다. 다시 검색해주세요.
-        </div>
+        <MappingDiv>
+          <div
+            style={{
+              display: 'flex',
+              height: '100%',
+              justifyContent: 'center',
+              padding: '20px',
+            }}
+          >
+            검색 결과가 없습니다. 다시 검색해주세요.
+          </div>
+        </MappingDiv>
       )}
 
-      <ListPagination
+      <Pagination
         total={posts.length}
         limit={limit}
         page={page}

@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 const ImgDiv = styled.div`
   background: lightgray;
   width: 150px;
   height: 150px;
-  //border: 1px solid black;
   border-radius: 5px;
   padding-top: 50px;
 `;
@@ -14,7 +13,6 @@ const DetailDiv = styled.div`
   flex-direction: column;
   margin-left: 5%;
   width: 910px;
-  //border: 1px solid black;
   justify-content: center;
   padding: 10px;
 `;
@@ -44,7 +42,7 @@ const SpeakersInf = ({ sp }) => {
       <DetailDiv>
         <TextDiv>
           <TitleDiv>이름</TitleDiv>
-          {sp.speaker_name}
+          {sp.name}
         </TextDiv>
         <TextDiv>
           <TitleDiv>소속</TitleDiv>

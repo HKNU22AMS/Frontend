@@ -9,15 +9,9 @@ import Footer from './components/Base/Footer';
 
 function App() {
   return (
-    <div>
+    <div style={{ position: 'relative' }}>
       <Header />
-      <div
-        style={{
-          height: 'auto',
-          minHeight: '100%',
-          paddingBottom: '30px',
-        }}
-      >
+      <div>
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/bill/:Billid" element={<BillPage />} />
