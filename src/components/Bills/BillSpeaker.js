@@ -9,13 +9,15 @@ const TitleText = styled.div`
   margin-bottom: 10px;
 `;
 const SpeakerContainer = styled.div`
-  height: 320px;
+  min-height: 320px;
   margin-bottom: 4%;
   padding: 2%;
   box-shadow: 0 0 20px -5px silver;
   border-radius: 10px;
   background: none;
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(${(props) => Math.ceil(props.num / 2)}, auto);
+  gap: 15px;
   overflow: auto;
   ::-webkit-scrollbar {
     width: 5px;
@@ -97,7 +99,7 @@ const BillSpeaker = ({ sp }) => {
   return (
     <div>
       <TitleText>발언자 목록</TitleText>
-      <SpeakerContainer>
+      <SpeakerContainer num={sp.length}>
         {sp.map((speakers) => {
           return (
             <SpeakerDiv key={speakers.speaker_id}>

@@ -24,7 +24,7 @@ const ColumnText = styled.div`
 `;
 const MappingDiv = styled.div`
   display: flex;
-  height: 600px;
+  min-height: 600px;
   flex-direction: column;
   text-align: center;
   overflow: auto;
