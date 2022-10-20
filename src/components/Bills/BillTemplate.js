@@ -1,20 +1,23 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useEffect, useState } from 'react';
 import BillGraphs from './BillGraphs';
 import BillName from './BillName';
 import BillSpeaker from './BillSpeaker';
 
-const PageContent = styled.div``;
-
 const BillTemplate = ({ billInfo, sp }) => {
+  const [TopList, setTL] = useState([]);
+
+  useEffect(() => {
+    setTL(billInfo.main_content && billInfo.main_content.split(','));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [billInfo]);
   return (
     <>
-      {billInfo && sp && (
-        <PageContent>
+      {billInfo && sp && TopList && (
+        <div>
           <BillName billInfo={billInfo} />
-          <BillGraphs billInfo={billInfo} sp={sp} />
+          <BillGraphs TopList={TopList} sp={sp} />
           <BillSpeaker billInfo={billInfo} sp={sp} />
-        </PageContent>
+        </div>
       )}
     </>
   );

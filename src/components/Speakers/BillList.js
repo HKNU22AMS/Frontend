@@ -28,7 +28,10 @@ const ColumnText = styled.div`
   width: ${(props) => props.size || '20%'};
   text-decoration: none;
   font-size: 1.05rem;
-  letter-spacing: -0.1rem;
+  letter-spacing: -3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 const StyledLink = styled(Link)`
   text-decoration: none;
@@ -68,28 +71,28 @@ const BillList = ({ bills }) => {
       <TitleDiv>발언 법안 목록</TitleDiv>
       <ListDiv>
         <ColumnDiv>
-          <ColumnText size="8%">번호</ColumnText>
-          <ColumnText size="8%">대수</ColumnText>
+          <ColumnText size="5%">번호</ColumnText>
+          <ColumnText size="5%">대수</ColumnText>
           <ColumnText>회의구분</ColumnText>
           <ColumnText>위원회</ColumnText>
-          <ColumnText size="30%">법안명</ColumnText>
-          <ColumnText size="14%">회의 일자</ColumnText>
+          <ColumnText size="40%">법안명</ColumnText>
+          <ColumnText size="10%">회의 일자</ColumnText>
         </ColumnDiv>
 
         <MappingDiv>
           {bills &&
             bills.slice(offset, offset + limit).map((bill, index) => (
               <MappingList key={index}>
-                <ColumnText size="8%">{index + 1}</ColumnText>
-                <ColumnText size="8%">제{bill.assembly_num}대</ColumnText>
+                <ColumnText size="5%">{index + 1}</ColumnText>
+                <ColumnText size="5%">제{bill.assembly_num}대</ColumnText>
                 <ColumnText>{bill.meeting_class}</ColumnText>
                 <ColumnText>{bill.committee}</ColumnText>
-                <ColumnText size="30%">
+                <ColumnText size="40%">
                   <StyledLink to={`/bill/${bill.bill_id}`}>
                     {bill.bill_name}
                   </StyledLink>
                 </ColumnText>
-                <ColumnText size="14%">
+                <ColumnText size="10%">
                   {bill.meeting_date && bill.meeting_date.replace(/-/g, '/')}
                 </ColumnText>
               </MappingList>

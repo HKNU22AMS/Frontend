@@ -31,7 +31,7 @@ router.get('/api/bill/:Billid', (req, res) => {
   // b.graph, b.keyword 미포함
 
   db.query(
-    `SELECT b.bill_id, b.bill_name FROM bill as b LEFT JOIN proposal as p ON b.bill_id = p.bill_id JOIN speaker as s ON p.speaker_id2 = s.speaker_id JOIN remark as r ON s.speaker_id = r.speaker_id WHERE b.bill_id = ?`,
+    `SELECT b.bill_id, b.bill_name, b.main_content FROM bill as b LEFT JOIN proposal as p ON b.bill_id = p.bill_id JOIN speaker as s ON p.speaker_id2 = s.speaker_id JOIN remark as r ON s.speaker_id = r.speaker_id WHERE b.bill_id = ?`,
     [Billid],
     function (err, bill) {
       if (err) {
@@ -67,7 +67,7 @@ router.get('/api/speaker/:Speakerid', (req, res) => {
     },
   );
   db.query(
-    `SELECT b.bill_id, b.bill_name, m.assembly_num, m.committee, m.meeting_date, m.meeting_class FROM bill as b JOIN proposal as p ON b.bill_id = p.bill_id JOIN speaker as s ON p.speaker_id2 = s.speaker_id JOIN remark as r ON s.speaker_id = r.speaker_id JOIN minute as m ON r.minute_id = m.minute_id WHERE s.speaker_id = ?`,
+    `SELECT DISTINCT b.bill_id, b.bill_name, m.assembly_num, m.committee, m.meeting_date, m.meeting_class FROM bill as b JOIN proposal as p ON b.bill_id = p.bill_id JOIN speaker as s ON p.speaker_id2 = s.speaker_id JOIN remark as r ON s.speaker_id = r.speaker_id JOIN minute as m ON r.minute_id = m.minute_id WHERE s.speaker_id = ?`,
     [Speakerid],
     function (err, bills) {
       if (err) {

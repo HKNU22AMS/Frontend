@@ -24,7 +24,6 @@ const ColumnText = styled.div`
 `;
 const MappingDiv = styled.div`
   display: flex;
-
   height: 600px;
   flex-direction: column;
   text-align: center;
@@ -47,6 +46,7 @@ const MappingList = styled.li`
   margin-top: 1.3%;
   margin-bottom: 1.3%;
   display: flex;
+  align-items: center;
 `;
 const StyledLink = styled(Link)`
   text-decoration: none;

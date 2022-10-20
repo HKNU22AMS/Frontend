@@ -33,14 +33,24 @@ const UnitDiv = styled.div`
   padding-left: 5px;
 `;
 const MainDiv = styled.div`
+  display: flex;
   height: 100px;
   padding: 10px;
   box-shadow: 0 0 20px -5px silver;
   border-radius: 10px;
   background: none;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+`;
+const TopDiv = styled.div`
+  color: ${(props) => props.col};
+  font-size: ${(props) => props.size};
+  font-weight: bold;
+  letter-spacing: -5px;
 `;
 
-const BillGraphs = ({ billInfo, sp }) => {
+const BillGraphs = ({ TopList, sp }) => {
   return (
     <BillContentDiv>
       <div style={{ width: '50%' }}>
@@ -52,7 +62,23 @@ const BillGraphs = ({ billInfo, sp }) => {
       </div>
       <div style={{ width: '100%' }}>
         <TitleText>Top 5</TitleText>
-        <MainDiv>{billInfo.main_content}</MainDiv>
+        <MainDiv>
+          <TopDiv col="#727e55" size="2.7rem">
+            {TopList[0]}{' '}
+          </TopDiv>
+          <TopDiv col="#727e65" size="2.4rem">
+            {TopList[1]}{' '}
+          </TopDiv>
+          <TopDiv col="#727e80" size="2.1rem">
+            {TopList[2]}{' '}
+          </TopDiv>
+          <TopDiv col="#b1c8a9" size="1.8rem">
+            {TopList[3]}{' '}
+          </TopDiv>
+          <TopDiv col="#b1c8b6" size="1.5rem">
+            {TopList[4]}{' '}
+          </TopDiv>
+        </MainDiv>
       </div>
     </BillContentDiv>
   );
