@@ -2,7 +2,7 @@
 국회 회의록을 요약하여 제공하는 웹 서비스 프로젝트입니다.<br/>
 
 <br/><br/>
-### 개발 환경
+### 개발 환경 및 기술
 * 딥러닝 : Python, Google Colab
   * Pre-trained 딥러닝 모델인 KoBart를 Fine-tuning하여 사용
 * 프론트엔드 : Visual Studio Code, Javascript, React
